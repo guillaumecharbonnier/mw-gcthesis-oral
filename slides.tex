@@ -13,6 +13,7 @@
 \usepackage{pgfplots}
 \usepgfplotslibrary{dateplot}
 \usepackage{multicol}
+\usepackage{tikz}
 \usepackage{listings,newtxtt}
 \lstset{basicstyle=\ttfamily, keywordstyle=\bfseries}
 \usepackage{xspace}
@@ -155,59 +156,66 @@
 \begin{frame}[plain]
   \def\smi{out/ln/updir/mw-gcthesis-oral/ink/Cedar2011/fig4/6.pdf}
   \includegraphics[width=1\textwidth, height=0.75\textheight, keepaspectratio]{\smi}%
-  \note{Alors que dans le progéniteur lymphoïde, le verrou de la tri-méthylation est levé. Cet exemple très simplifié illustre pourquoi il est important de s'intéresser aux dynamiques épigénomiques dans différents modèles biologiques puisque différents mécanismes sont à l'oeuvre.}
+  \note{Alors que dans le progéniteur lymphoïde, le verrou de la tri-méthylation est levé. Cet exemple très simplifié illustre pourquoi il est important de s'intéresser aux dynamiques épigénomiques dans différents modèles biologiques puisque des mécanismes différents sont à l'oeuvre dans la régulation des programmes d'expression.}
 \end{frame}
 \begin{frame}[plain]
   \def\smi{out/ln/updir/mw-gcthesis-oral/ink/Cedar2011/fig5-custom-layout/1.pdf}
   \includegraphics[width=1\textwidth, height=0.75\textheight, keepaspectratio]{\smi}%
-  \note{Les gènes bivalents possèdent à la fois la marque de répression H3K27me3 et celle d'activation H3K4me3. }
+  \note{Un dernier exemple classique: Les gènes bivalents. Ils possèdent à la fois la marque de répression H3K27me3 et celle d'activation H3K4me3. Afin d'affiner leur statut épigénétique, il est nécessaire d'avoir accès à d'autres modifications épigénétiques.}
 \end{frame}
 \begin{frame}[plain]
   \def\smi{out/ln/updir/mw-gcthesis-oral/ink/Cedar2011/fig5-custom-layout/2.pdf}
   \includegraphics[width=1\textwidth, height=0.75\textheight, keepaspectratio]{\smi}%
-  \note{Lire Tee2014 pour infos sur les symétries histoniques dans les nucléosomes.}
+  \note{S'ils possèdent en plus des monométhylations sur les lysines 4, 9 et 20 de l'histone 3 ainsi que le variant d'histone H2AZ en remplacement de H2A, alors ce gène bivalent peut considéré comme activable. On peut noter au passage qu'il est tout a fait possible d'observer expérimentalement plusieurs modifications épigénétiques sur les mêmes résidus d'histones puisqu'il existe deux queues pour chaque type d'histone par nucléosome. D'autre part, les observations faites à partir de ChIP-Seq se font sur des pools de cellules qui peuvent avoir des états différents à un instant donné.}
+  %Lire Tee2014 pour infos sur les symétries histoniques dans les nucléosomes.
 \end{frame}
 \begin{frame}[plain]
   \def\smi{out/ln/updir/mw-gcthesis-oral/ink/Cedar2011/fig5-custom-layout/3.pdf}
   \includegraphics[width=1\textwidth, height=0.75\textheight, keepaspectratio]{\smi}%
-  \note{}
+  \note{Si on observe majoritairement la marque H3K9me3, le gène peut être considéré comme réprimé. Pour tous ces exemples d'introduction, la région des gènes considérés est leur promoteur...}
 \end{frame}
 \begin{frame}[plain]
   \def\smi{out/ln/updir/mw-gcthesis-oral/ink/Ong2011.pdf}
-  \includegraphics[width=1\textwidth, height=0.75\textheight, keepaspectratio]{\smi}
-  \note{Présenter cas des promoteurs en introduction. Évoquer l'idée que des mécanismes différents sont à l’œuvre pour l'activation et l'inactivation de certains gènes. D'où l'intérêt d'étudier les mécanismes. Peut être retirer insulateur de la figure ?}
+  \includegraphics[width=1\textwidth, height=0.75\textheight, keepaspectratio]{\smi}%
+  \note{... Mais la connaissance de la présence de différentes modifications épigénétiques permet également de classifier l'ensemble du génome en éléments fonctionnels, tel que les enhancers et silenceurs. L'activation ou l'inactivation de ces éléments fonctionnels dans un contexte de différentiation cellulaire sain ou pathologique permet d'expliquer l'expression de programme génétique particuliers. L'étude des dynamiques épigénomiques qui gouvernent ou révèlent ces activations ou inactivations peut permettre de retracer l'enchainement des événements qui amènent une cellule à s'engager dans une voie de différentiation.}%
+  %er quer l'idée que des mécanismes différents sont à l'oeuvre pour l'activation et l'inactivation de certains gènes. D'où l'intérêt d'étudier les mécanismes. Peut être retirer insulateur de la figure ?}
 \end{frame}
-\begin{frame}[plain]
-  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/ElKennani2017-histone-variants-in-mouse.pdf}
-  \includegraphics[width=1\textwidth, height=.95\textheight, keepaspectratio]{\smi}
-\end{frame}
-\begin{frame}[plain]
-  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/ElKennani2017-histone-variants-in-mouse-h2al2-highlight.pdf}
-  \includegraphics[width=1\textwidth, height=.95\textheight, keepaspectratio]{\smi}
-\end{frame}
-\begin{frame}[plain]
-  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/Huang2014-histones-ptms.pdf}
-  \includegraphics[width=\textwidth, height=\textheight, keepaspectratio]{\smi}
-\end{frame}
-\begin{frame}[plain]
-  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/Huang2014-histones-ptms-reference-epigenome-highlight.pdf}
-  \includegraphics[width=\textwidth, height=\textheight, keepaspectratio]{\smi}
-\end{frame}\begin{frame}[plain]
-  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/Huang2014-histones-ptms-h4k5k8acbu-highlight.pdf}
-  \includegraphics[width=\textwidth, height=\textheight, keepaspectratio]{\smi}%
-  \note{Parler de H4K5ac/bu H4K8ac/bu ici et évoquer l'article. Conclure sur le travail titanesque de classifier fonctionnellement toutes les marques et variants: fonctions/interactions. Poser la problématique biologique de l'étude des dynamiques épigénomiques. Etude de ce grand schéma, code épigénétique}
-\end{frame}
+%\begin{frame}[plain]
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/ElKennani2017-histone-variants-in-mouse.pdf}
+%  \includegraphics[width=1\textwidth, height=.95\textheight, keepaspectratio]{\smi}
+%\end{frame}
+%\begin{frame}[plain]
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/ElKennani2017-histone-variants-in-mouse-h2al2-highlight.pdf}
+%  \includegraphics[width=1\textwidth, height=.95\textheight, keepaspectratio]{\smi}
+%\end{frame}
+%\begin{frame}[plain]
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/Huang2014-histones-ptms.pdf}
+%  \includegraphics[width=\textwidth, height=\textheight, keepaspectratio]{\smi}
+%\end{frame}
+%\begin{frame}[plain]
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/Huang2014-histones-ptms-reference-epigenome-highlight.pdf}
+%  \includegraphics[width=\textwidth, height=\textheight, keepaspectratio]{\smi}%
+%  \note{Tout comme dans l'exemple des gènes bivalents qui peuvent être classifiés plus précisément en gènes activables ou réprimés, on peut supposer que l'intégration de davantage de modifications épigénétiques permettent une définition plus précise de chaque région du génome.}%
+%\end{frame}
+%\begin{frame}[plain]
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/Huang2014-histones-ptms-h4k5k8acbu-highlight.pdf}
+%  \includegraphics[width=\textwidth, height=\textheight, keepaspectratio]{\smi}%
+%  \note{Parler de H4K5ac/bu H4K8ac/bu ici et évoquer l'article. Conclure sur le travail titanesque de classifier fonctionnellement toutes les marques et variants: fonctions/interactions. Poser la problématique biologique de l'étude des dynamiques épigénomiques. Etude de ce grand schéma, code épigénétique}%
+%\end{frame}
 \begin{frame}[plain]
   \def\smi{out/ln/updir/mw-gcthesis-oral/ink/necker-collaboration.pdf}
-  \includegraphics[width=\textwidth, height=.9\textheight, keepaspectratio]{\smi}
+  \includegraphics[width=\textwidth, height=.9\textheight, keepaspectratio]{\smi}%
+  \note{Plus particulièrement, je vais vous présenter aujourd'hui une étude des dynamiques épigénomiques au cours de la thymopoïèse réalisée pendant ma thèse. Cette étude a pu être menée grâce aux données épigénétiques produites dans le cadre du projet Européen Blueprint, avec un soupçon d'Encode, un zest de Roadmap, et complémentées par des données générées hors consortiums issus d'échantillons thymiques de donneurs sains (et de patients?) de l'institut Necker.}%
 \end{frame}
 \begin{frame}[plain]
   \def\smi{out/ln/updir/mw-gcthesis-oral/ink/Ulirsch2019-fig1-recolored.pdf}
-  \includegraphics[width=\textwidth, height=\textheight, keepaspectratio]{\smi}
+  \includegraphics[width=\textwidth, height=\textheight, keepaspectratio]{\smi}%
+  \note{Sur cette vue d'ensemble de l'hématopoïèse, la thymopoïèse est délimitée par la surface en bleu et correspond à la différentiation de progéniteurs lymphoïdes communs, noté ici CLP, en lymphocyte T CD4+ ou CD8+.}%
 \end{frame}
 \begin{frame}[plain]
   \def\smi{out/ln/updir/mw-gcthesis-oral/ink/thymus/1.pdf}
-  \includegraphics[width=\textwidth, height=\textheight, keepaspectratio]{\smi}
+  \includegraphics[width=\textwidth, height=\textheight, keepaspectratio]{\smi}%
+  \note{}%
 \end{frame}
 \begin{frame}[plain]
   \def\smi{out/ln/updir/mw-gcthesis-oral/ink/thymus/2.pdf}
@@ -427,6 +435,52 @@
   \includegraphics[width=\textwidth, height=.65\textheight, keepaspectratio]{\smi}
 \end{frame}
 
+\begin{frame}[plain]
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/tall/H3K27ac_HOXA5-9_TLX1_TLX3_ealpha_barplot.png}
+  %\def\smi{out/ln/updir/mw-gcthesis-oral/ink/tall/H3K27ac_HOXA9_TLX1_TLX3_ealpha_barplot_recolored_trimmed.png}
+  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}%
+  \note{Classes}%
+\end{frame}
+\begin{frame}[plain]
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/tall/H3K27ac_HOXA5-9_TLX1_TLX3_ealpha_barplot.png}
+  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}%
+  \begin{tikzpicture}[overlay, remember picture]
+    \node at (current page) 
+    {
+      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/tall/ealpha_h3k27ac_groups.pdf}
+      %\def\smi{out/ln/updir/mw-gcthesis-oral/ink/tall/dot-box-violin-plot-H3K27ac-ealpha.pdf}
+      \includegraphics[width=\textwidth, height=.65\textheight, keepaspectratio]{\smi}
+    };
+  \end{tikzpicture}
+  \note{Boxplot}%
+\end{frame}
+\begin{frame}[plain]
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/Highlight_HOXA_Blueprint_paper.pdf}
+  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}%
+  \note{Classes}%
+\end{frame}
+
+%\begin{frame}{Key results}
+%  \begin{itemize}
+%    \item A reference epigenome of human early T cell differentiation has been generated
+%      \begin{itemize}
+%        \item Thymic subpopulations exhibit consistent epigenomic landscape when comparing between them, and between all HSC lineages
+%        \item Differentiation from HSC to mature T-cell lineage is associated with a shift from enhancers and transcribed regions to heterochromatin
+%          %  \end{itemize}
+%        \item DNA demethylation is a hallmark of distal regulatory elements irrespective of their activation status in T cells
+%          \begin{itemize}
+%            \item Distal hypomethylated regions are predominantly (77\%) constitutively demethylated accross thymic subpopulations
+%            \item Dynamic distal hypomethylated regions are associated with higher level of H3K27ac and H3K4me1, and higher expression level of nearest genes
+%            \item Distal regions losing methylation during T-cell differentiation are associated with T-cell functions whereas constitutively hypomethylated regions are mainly associated with other hematopoietic functions
+%          \end{itemize}
+%        \item Chromatin opening precedes enhancer activation
+%        \item The TCRA enhancer (Eα) is in an open but epigenetically silent configuration in immature thymocytes
+%        \item The HOXA locus is progressively repressed during early T cell differentiation
+%        \item HOXA5-9 proteins repress Eα activity via their homeodomain
+%        \item HOXA9 overexpression imposes developmental bias towards γδ T cell lineage
+%        \item Homeodomain protein deregulation leads to TCRγδ bias in human T-ALL
+%  \end{itemize}
+%\end{frame}
 
 
 
