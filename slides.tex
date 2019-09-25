@@ -1,5 +1,7 @@
+\def\pgfsysdriver{pgfsys-dvipdfm.def}
 \documentclass[10pt]{beamer}
 \usepackage{pgfpages}
+
 \setbeameroption{show notes on second screen=right}
 %\setbeameroption{show notes on second screen}
 \usetheme[progressbar=frametitle,subsectionpage=progressbar,block=fill]{metropolis}
@@ -7,6 +9,7 @@
 \usepackage{appendixnumberbeamer}
 \setbeamercolor{background canvas}{bg=white}
 \usepackage{booktabs}
+\usepackage{multirow}
 \usepackage[scale=2]{ccicons}
 \usepackage{textgreek}
 \usepackage{ulem}
@@ -353,7 +356,8 @@
 \end{frame}
 \begin{frame}{DNA hypomethylation as a hallmark of distal regulatory regions...}
   \def\smi{out/ln/updir/mw-gcthesis-oral/ink/hypometh-clusters/4.pdf}
-  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
+  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}%
+  \note{On peut également chercher à associer les régions distales avec les gènes à proximité. Une façon la plus simple étant de les associés au gène le plus proche en amont et au gène le plus proche en aval de la région distale.}%
 \end{frame}
 \begin{frame}{DNA hypomethylation as a hallmark of distal regulatory regions...}
   \def\smi{out/ln/updir/mw-gcthesis-oral/ink/hypometh-clusters/5.pdf}
@@ -492,13 +496,6 @@
   \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}%
   \note{Classes}%
 \end{frame}
-\section{Reproducibility}
-\begin{frame}
-%  \note{Cela fait maintenant 20 minutes que l'on partage ce moment, je vais un peu me livrer et vous parler }
-  % JE ne vous ai pas tout dit. pour avoir accès à tous les détails, il faut aller regarder dans le code.
-\end{frame}
-%\frame{\tableofcontents[currentsection]}
-
 %\begin{frame}{Key results}
 %  \begin{itemize}
 %    \item A reference epigenome of human early T cell differentiation has been generated
@@ -520,13 +517,251 @@
 %        \item Homeodomain protein deregulation leads to TCRγδ bias in human T-ALL
 %  \end{itemize}
 %\end{frame}
+\section{Reproducibility}
+\begin{frame}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/reproducibility/pubmed_trend_reproducibility_crisis.pdf}
+  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}%
+%  \note{Cela fait maintenant 20 minutes que l'on partage ce moment, je vais un peu me livrer et vous parler }
+  % JE ne vous ai pas tout dit. pour avoir accès à tous les détails, il faut aller regarder dans le code.
+\end{frame}
+%\frame{\tableofcontents[currentsection]}
+\begin{frame}{Defining reproduciblity}
+  (Goodman et al. 2016)
+  \begin{itemize}
+    \item Methods reproducibility: provide sufficient detail about procedures and data so that the same procedures could be exactly repeated.
+    \item Results reproducibility: obtain the same results from an independent study with procedures as closely matched to the original study as possible.
+    \item Inferential reproducibility: draw the same conclusions from either an independent replication of a study or a reanalysis of the original study.
+  \end{itemize}
+\end{frame}
+\begin{frame}{Defining reproduciblity}
+  (Goodman et al. 2016)
+  \begin{itemize}
+    \item Methods reproducibility: provide sufficient detail about procedures and data so that the same procedures could be exactly repeated.
+      \begin{itemize}
+        \item In bioinformatics: all code, dataset and software needed to produce a given set of results are available and usable by others.
+      \end{itemize}
+    \item Results reproducibility: obtain the same results from an independent study with procedures as closely matched to the original study as possible.
+    \item Inferential reproducibility: draw the same conclusions from either an independent replication of a study or a reanalysis of the original study.
+  \end{itemize}
+\end{frame}
+\begin{frame}{Requirements for (methods) reproducibility}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/reproducibility/arrow_reproducibility.pdf}
+  \includegraphics[width=.55\textwidth, height=.95\textheight, keepaspectratio]{\smi}
 
+  {\scriptsize
+  \begin{tabular}{@{}ll@{}}
+    \toprule
+    Component                      & Requirements                             \\ \midrule
+    \multirow{4}{*}{Data}          & Findable                                 \\
+    & Accessible                               \\
+    & Interoperable                            \\ 
+    & Reusable                                 \\ \midrule
+    \multirow{3}{*}{Software}             & Tools with permissive licence \\
+    & User-level package management            \\
+    & Automatic environment deployment           \\ \midrule
+    \multirow{3}{*}{Analysis Code} & Tools and parameters for each step       \\
+    & Documentation of order, input and output \\
+    & Minimal human action required to reproduce analysis \\ \bottomrule
+  \end{tabular}
+  }
+  \note{Hello Reprod}
+\end{frame}
+\begin{frame}{Additional Requirements for massive genomic data handling}
+  \begin{itemize}
+    \item Scalability
+    \item Portability
+    \item Reentrability
+  \end{itemize}
+\end{frame}
+\begin{frame}[fragile]{Elements of solution for reproducibility in bioinformatics}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/reproducibility/arrow_reproducibility_solutions.pdf}
+  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
+  \begin{lstlisting}
+  git clone URL_for_workflow/repo.git
+  cd repo
+  snakemake --use-conda
+  \end{lstlisting}
+\end{frame}
+\subsection{Beyond reproducibility}
+\begin{frame}{Reusability scenario}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/reproducibility/arrow_reproducibility_exchange_data.pdf}
+  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
+\end{frame}
+\begin{frame}{Alternative protocol exploration scenario}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/reproducibility/arrow_reproducibility_alternative_protocol.pdf}
+  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
+\end{frame}
+\begin{frame}{Integrate multiple workflows into one analysis}
+  Changer schéma ici
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/reproducibility/arrow_reproducibility_alternative_protocol.pdf}
+  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
+\end{frame}
+\begin{frame}{Snakemake workflow: from basic example...}
+  % Snakemake ``pull'' principle}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/snakemake/simple_workflow.pdf}
+  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
+\end{frame}
+\begin{frame}{Snakemake workflow: from basic example to simple RNA-Seq analysis}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/snakemake/rna-seq-star-deseq2.png}
+  \includegraphics[width=\textwidth, height=.75\textheight, keepaspectratio]{\smi}
+\end{frame}
+\begin{frame}{Snakemake workflow: from basic example to more complex ChIP-Seq analysis}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/snakemake/snakechunk.png}
+  \includegraphics[width=\textwidth, height=.75\textheight, keepaspectratio]{\smi}
+\end{frame}
+\begin{frame}{Snakemake workflow: from basic example to integrative .*-Seq analysis}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/snakemake/snakechunk.png}
+  \includegraphics[width=\textwidth, height=.75\textheight, keepaspectratio]{\smi}
+\end{frame}
+\begin{frame}{Snakemake user worst nightmare: ambiguous rules}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/snakemake/ambiguous_rules.pdf}
+  \includegraphics[width=\textwidth, height=.75\textheight, keepaspectratio]{\smi}%
+  \note{As a developer, you have the responsibility to find naming patterns
+  for all the rules in your workflow. If your workflow grows in size, you
+  may face “ambiguous rules” issues. 
 
-
-
-
-
-
+  Discrepancies in naming patterns from different workflows are the
+  main cause of hassle when trying to merge features from both.
+  }%
+\end{frame}
+\begin{frame}{Objectives}
+  \begin{itemize}
+    \item How to ensure no ambiguity can arise between rules while maintaining large scope for rules?
+    %\item Is it possible to use Snakemake with an alternative paradigm ``One workflow for all analyses''?
+    \item Is it possible to write a unique workflow to compute any possible analyses?
+    %\item Transforming weakness into strength.
+    \item Is it possible to store a bioinformatician thesis project, a whole research career, or a project of any size with multiple collaborators inside a reproducible, scalable and lightweight workflow?
+      %\item Simple solution: 
+  \end{itemize}
+\end{frame}
+%\section{MetaWorkflow: a methodological experiment to find conventional algorithmical way for naming patterns}
+%\begin{frame}{MetaWorkflow: a methodological experiment to find conventional algorithmical way for naming file patterns}
+%%\begin{frame}{All rules and tools can be coerced to one of these rule types}
+%%  \includegraphics[width=1\textwidth, height=0.75\textheight, keepaspectratio]{doc/2017_05_03_gc_rule_types/drawing.pdf}
+%%\end{frame}
+\begin{frame}
+  \frametitle{All rules can and should be coerced to write their outputs in their own unique directory}
+  \begin{itemize}
+    \item out/\{tool-name\}/\{optional-subfunction\}\_\{arg1name\}-\{arg1value\}\_\{arg2name\}-\{arg2value\}\_\{\ldots\}/\{filler\}.\{ext\}
+    \item where \{filler\} is the main input file path from out level without its extension.
+    \item Example:
+      \begin{itemize}
+        \item Raw sequences:\\
+          \textcolor{red}{inp/fastq/sample}.fastq
+        \item Trimmed sequences:\\
+          out/\textcolor{blue}{sickle/se\_q-30\_t-sanger}/\textcolor{red}{inp/fastq/sample}.fastq
+        \item Aligned sequences:\\
+          out/\textcolor{green}{bowtie2/se\_x-GRCh38}/\textcolor{blue}{sickle/se\_q-30\_t-sanger}/\textcolor{red}{inp/fastq/sample}.sam
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+%\begin{frame}[fragile]{An example of rule for tools that have to be coerced to write to their own unique directory:\\Tools writing output file where input file is located}
+%  \begin{lstlisting}[language=Python]
+%  rule samtools_index:
+%    input:
+%      bam="out/{filler}.bam",
+%    output:
+%      bam="out/samtools/index/{filler}.bam",
+%      bai="out/samtools/index/{filler}.bam.bai"
+%    shell:
+%      "ln -srf {input.bam} {output.bam}; "
+%      "samtools index {output.bam}"
+%  \end{lstlisting}
+%\end{frame}
+%\begin{frame}[fragile]{Another example of rule for tools that have to be coerced to write to their own unique directory:\\Tools writing output file where they are executed}
+%  \begin{lstlisting}[language=Python]
+%  rule thisTool
+%    input:
+%      "{filler}"
+%    output:
+%      "out/thisTool/{filler}"
+%    shell:
+%      """
+%      WDIR=`pwd`
+%      OUTDIR=`dirname {output}`
+%      cd $OUTDIR
+%      thisTool $WDIR/{input}
+%      """
+%  \end{lstlisting}
+%\end{frame}
+%\begin{frame}{Benefits of the ``One workflow for all analyses'' paradigm}
+%  %  Motivations:
+%  %  \begin{itemize}
+%  %    \item How to write a Snakemake workflow that is able to hold
+%  %    \item Can a bioinformatician thesis project, and by extent a whole research careeer, be stored as a reproducible, fast and lightweight workflow?
+%  %    \item How a bioinformatician thesis project, and by extent a whole research careeer, can be stored as a reproducible, fast and lightweight workflow?
+%  %  \end{itemize}
+%  \begin{itemize}
+%    \item Straightforward and computationally faster for:
+%      \begin{itemize}
+%        \item Data integration from various sources and types 
+%        \item Benchmarking of tools and parameters
+%      \end{itemize}
+%    \item Easier analysis development and maintenance:
+%      \begin{itemize}
+%        \item Grant your analysis the ability to self-deploy using only your Snakefile
+%        \item Limit redundancy of code for tools shared by multiple analyses
+%        \item Prevent ``ambiguous rules''
+%        \item No thinking about naming files and rules
+%      \end{itemize}
+%    \item Higher traceability of all files:
+%      \begin{itemize}
+%        \item Filepaths describe contents without ambiguity
+%        \item Workflow reproducibly tracks ``formatting'' operations pre and post analysis.
+%      \end{itemize}
+%  \end{itemize}
+%\end{frame}
+%\begin{frame}{Drawbacks of the ``One workflow for all analyses'' paradigm}
+%  \begin{itemize}
+%    \item Browsing out directory require bioinformatics knowledge about tools or known paths.
+%    \item Long file names make results hard to browse without terminal, and impossible in MS Windows before Windows 10 Anniversary Update when longer than 260 characters.
+%    \item The workflow is dumb and makes no choice by itself. User has responsibility for all choices when asking for an output filepath.
+%  \end{itemize}
+%  $\rightarrow$ Efficient post-process solutions can be found with biologists (mw-sst project).
+%\end{frame}
+%\begin{frame}{Drawbacks of the ``One workflow for all analyses'' paradigm}
+%  \begin{itemize}
+%    \item R devices may trim long relative file names without warning: R ends without error but Snakemake can't find output files were they were specified.
+%  \end{itemize}
+%  $\rightarrow$ Moving to output directory and providing basename to R devices solves the issue.
+%  \begin{itemize}
+%    \item Privacy/Sharing issues when rules and files from different projects lie in the same repository
+%  \end{itemize}
+%  $\rightarrow$ Public sharing of core and common functions in ``mw'' and keeping project-specific parts in private repositories until publication.
+%\end{frame}
+%%\begin{frame}{Alternative paradigm: One workflow for all analyses}
+%%  How?%
+%%  \begin{itemize}
+%%    \item Straightforward and computationally faster for:
+%%      \begin{itemize}
+%%        \item Data integration from various sources and types 
+%%        \item Benchmarking of tools and parameters
+%%      \end{itemize}
+%%    \item Higher traceability of input files 
+%%    \item Easier analysis developpment and maintenance:
+%%      \begin{itemize}
+%%        \item Limit redundancy of code for tools shared by multiple analyses
+%%        \item Prevent ``ambiguous rules''
+%%        \item No thinking about naming files and rules
+%%      \end{itemize}
+%%  \end{itemize}
+%%\end{frame}
+%\begin{frame}[fragile]{MetaWorkflow current state}
+%  \begin{itemize}
+%    \item More than 150 tool/subfonction pairs implemented as large scope rules in core repository \url{https://github.com/guillaumecharbonnier/mw}
+%    \item 7 plugins for project specific components, publically available for published ones, \textit{e.g.} \url{https://github.com/guillaumecharbonnier/mw-broad}
+%    \item 2 happy active users
+%    \item Continuous integration deployment in progress
+%    \item Open to contribution, issues and suggestions
+%    \item To reproduce this presentation, install conda, git and snakemake then:
+%  \end{itemize}
+%    %basicstyle=\footnotesize, 
+%  \begin{lstlisting}[language=Bash, basicstyle=\small, linewidth=1.1\textwidth, columns=fullflexible, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
+%    git clone https://github.com/guillaumecharbonnier/mw
+%    cd mw
+%    snakemake out/tectonic/ln/updir/mw/src/tex/beamer/mw.pdf --use-conda
+%  \end{lstlisting}
+%\end{frame}
 
 %\begin{frame}{Table of contents}
 %  \setbeamertemplate{section in toc}[sections numbered]
@@ -633,35 +868,6 @@
 %    \item LaTeX/R-Markdown/reStructuredText
 %  \end{itemize}
 %\end{frame}
-%%La reproductibilité en pratique : méthodes et outils
-%%¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-%%
-%%La reproductibilité de la recherche est un sujet qui prend une importance croissante dans notre environnement. Elle est un enjeu majeur pour l'intégrité scientifique. Dans un monde toujours plus numérique, chercheurs et informaticiens doivent collaborer à la mise en œuvre de méthodes et outils qui garantiront ce principe.
-%%
-%%Les données tout d'abord sont au coeur de la reproductibilité. Leur collecte, leur stockage, leur transformation, le contrôle de leur qualité, leur partage, leur identification sont sont
-%%des préoccupations majeures.
-%%
-%%Les logiciels développés ainsi que les logiciels utilisés doivent également être gérés avec soins et recensés avec minutie. Quels outils et quels processus faut-il mettre en oeuvre pour garantir la précision et la reproductibilité de leur exécution ?
-%%Comment automatiser l'interaction entre les logiciels et les données, selon quels workflows, avec quels outils et sur quelles infrastructures ?
-%%
-%%Enfin se posent également les question de l'organisation du travail au quotidien pour historiser toutes les actions de recherche : développement, exploration, etc. Avez-vous mis en place des outils pour faciliter cette traçabilité ?
-%%
-%%En tant qu'informaticiens, venez nous présenter les infrastructures, les outils et les processus que vous avez mis en oeuvre pour permettre la reproductibilité des résultats.
-%%
-%%Venez partager vos connaissances, et vos expériences en nous proposant des exposés de 20 à 50 min avant le 26/02/2018 à l'adresse suivante : <comite.aramis@listes.resinfo.org>
-%%
-%%Nous réserverons également un créneau de présentation pour quelques lightning talks (courte présentation de 5 min, 1-2 transparents, inscription dès à présent).
-%%
-%%Quelques suggestions de thèmes et mots-clefs :
-%%
-%%- Données : protection, qualité, traçabilité
-%%- Stockage : sécurité, sauvegarde, archivage
-%%- Code : Langage, versioning, portage
-%%- Immutabilité : Conteneurisation (Docker, Singularity)
-%%- Workflow : Intégration continue, livraison continue
-%%- Sécurité : protection du potentiel scientifique
-%%- Notebook : Jupyter, Rstudio
-%%- Initiatives : Software Heritage
 %%\begin{frame}{Solution proposal key points.}
 %%  \begin{itemize}
 %%    \item Snakemake: A make-like workflow manager which handle both local and cluster execution in a scalable and readable manner.
@@ -803,142 +1009,6 @@
 %  \end{lstlisting}
 %\end{frame}
 %\begin{frame}{An other solution is possible...}
-%\end{frame}
-%\section{MetaWorkflow: a methodological experiment to find conventional algorithmical way for naming patterns}
-%\begin{frame}{MetaWorkflow: a methodological experiment to find conventional algorithmical way for naming patterns}
-%  \begin{itemize}
-%    \item How to ensure no ambiguity can arise between rules while maintaining large scope for rules?
-%    \item Is it possible to use Snakemake with an alternative paradigm ``One workflow for all analyses''?
-%    %\item Transforming weakness into strength.
-%    \item Is it possible to store a bioinformatician thesis project, a whole research career, or a project of any size with multiple collaborators inside a reproducible, fast and lightweight workflow?
-%      %\item Simple solution: 
-%  \end{itemize}
-%\end{frame}
-%%\begin{frame}{All rules and tools can be coerced to one of these rule types}
-%%  \includegraphics[width=1\textwidth, height=0.75\textheight, keepaspectratio]{doc/2017_05_03_gc_rule_types/drawing.pdf}
-%%\end{frame}
-%\begin{frame}
-%  \frametitle{All rules can and should be coerced to write their outputs in their own unique directory}
-%  \begin{itemize}
-%    \item out/\{tool-name\}/\{optional-subfunction\}\_\{arg1name\}-\{arg1value\}\_\{arg2name\}-\{arg2value\}\_\{\ldots\}/\{filler\}.\{ext\}
-%    \item where \{filler\} is the main input file path from out level without its extension.
-%    \item Example:
-%      \begin{itemize}
-%        \item Raw sequences:\\
-%          \textcolor{red}{inp/fastq/sample}.fastq
-%        \item Trimmed sequences:\\
-%          out/\textcolor{blue}{sickle/se\_q-30\_t-sanger}/\textcolor{red}{inp/fastq/sample}.fastq
-%        \item Aligned sequences:\\
-%          out/\textcolor{green}{bowtie2/se\_x-GRCh38}/\textcolor{blue}{sickle/se\_q-30\_t-sanger}/\textcolor{red}{inp/fastq/sample}.sam
-%      \end{itemize}
-%  \end{itemize}
-%\end{frame}
-%\begin{frame}[fragile]{An example of rule for tools that have to be coerced to write to their own unique directory:\\Tools writing output file where input file is located}
-%  \begin{lstlisting}[language=Python]
-%  rule samtools_index:
-%    input:
-%      bam="out/{filler}.bam",
-%    output:
-%      bam="out/samtools/index/{filler}.bam",
-%      bai="out/samtools/index/{filler}.bam.bai"
-%    shell:
-%      "ln -srf {input.bam} {output.bam}; "
-%      "samtools index {output.bam}"
-%  \end{lstlisting}
-%\end{frame}
-%\begin{frame}[fragile]{Another example of rule for tools that have to be coerced to write to their own unique directory:\\Tools writing output file where they are executed}
-%  \begin{lstlisting}[language=Python]
-%  rule thisTool
-%    input:
-%      "{filler}"
-%    output:
-%      "out/thisTool/{filler}"
-%    shell:
-%      """
-%      WDIR=`pwd`
-%      OUTDIR=`dirname {output}`
-%      cd $OUTDIR
-%      thisTool $WDIR/{input}
-%      """
-%  \end{lstlisting}
-%\end{frame}
-%\begin{frame}{Benefits of the ``One workflow for all analyses'' paradigm}
-%  %  Motivations:
-%  %  \begin{itemize}
-%  %    \item How to write a Snakemake workflow that is able to hold
-%  %    \item Can a bioinformatician thesis project, and by extent a whole research careeer, be stored as a reproducible, fast and lightweight workflow?
-%  %    \item How a bioinformatician thesis project, and by extent a whole research careeer, can be stored as a reproducible, fast and lightweight workflow?
-%  %  \end{itemize}
-%  \begin{itemize}
-%    \item Straightforward and computationally faster for:
-%      \begin{itemize}
-%        \item Data integration from various sources and types 
-%        \item Benchmarking of tools and parameters
-%      \end{itemize}
-%    \item Easier analysis development and maintenance:
-%      \begin{itemize}
-%        \item Grant your analysis the ability to self-deploy using only your Snakefile
-%        \item Limit redundancy of code for tools shared by multiple analyses
-%        \item Prevent ``ambiguous rules''
-%        \item No thinking about naming files and rules
-%      \end{itemize}
-%    \item Higher traceability of all files:
-%      \begin{itemize}
-%        \item Filepaths describe contents without ambiguity
-%        \item Workflow reproducibly tracks ``formatting'' operations pre and post analysis.
-%      \end{itemize}
-%  \end{itemize}
-%\end{frame}
-%\begin{frame}{Drawbacks of the ``One workflow for all analyses'' paradigm}
-%  \begin{itemize}
-%    \item Browsing out directory require bioinformatics knowledge about tools or known paths.
-%    \item Long file names make results hard to browse without terminal, and impossible in MS Windows before Windows 10 Anniversary Update when longer than 260 characters.
-%    \item The workflow is dumb and makes no choice by itself. User has responsibility for all choices when asking for an output filepath.
-%  \end{itemize}
-%  $\rightarrow$ Efficient post-process solutions can be found with biologists (mw-sst project).
-%\end{frame}
-%\begin{frame}{Drawbacks of the ``One workflow for all analyses'' paradigm}
-%  \begin{itemize}
-%    \item R devices may trim long relative file names without warning: R ends without error but Snakemake can't find output files were they were specified.
-%  \end{itemize}
-%  $\rightarrow$ Moving to output directory and providing basename to R devices solves the issue.
-%  \begin{itemize}
-%    \item Privacy/Sharing issues when rules and files from different projects lie in the same repository
-%  \end{itemize}
-%  $\rightarrow$ Public sharing of core and common functions in ``mw'' and keeping project-specific parts in private repositories until publication.
-%\end{frame}
-%%\begin{frame}{Alternative paradigm: One workflow for all analyses}
-%%  How?%
-%%  \begin{itemize}
-%%    \item Straightforward and computationally faster for:
-%%      \begin{itemize}
-%%        \item Data integration from various sources and types 
-%%        \item Benchmarking of tools and parameters
-%%      \end{itemize}
-%%    \item Higher traceability of input files 
-%%    \item Easier analysis developpment and maintenance:
-%%      \begin{itemize}
-%%        \item Limit redundancy of code for tools shared by multiple analyses
-%%        \item Prevent ``ambiguous rules''
-%%        \item No thinking about naming files and rules
-%%      \end{itemize}
-%%  \end{itemize}
-%%\end{frame}
-%\begin{frame}[fragile]{MetaWorkflow current state}
-%  \begin{itemize}
-%    \item More than 150 tool/subfonction pairs implemented as large scope rules in core repository \url{https://github.com/guillaumecharbonnier/mw}
-%    \item 7 plugins for project specific components, publically available for published ones, \textit{e.g.} \url{https://github.com/guillaumecharbonnier/mw-broad}
-%    \item 2 happy active users
-%    \item Continuous integration deployment in progress
-%    \item Open to contribution, issues and suggestions
-%    \item To reproduce this presentation, install conda, git and snakemake then:
-%  \end{itemize}
-%    %basicstyle=\footnotesize, 
-%  \begin{lstlisting}[language=Bash, basicstyle=\small, linewidth=1.1\textwidth, columns=fullflexible, breaklines=true, postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}]
-%    git clone https://github.com/guillaumecharbonnier/mw
-%    cd mw
-%    snakemake out/tectonic/ln/updir/mw/src/tex/beamer/mw.pdf --use-conda
-%  \end{lstlisting}
 %\end{frame}
 %\section{Epigenomic dynamics of early T cell progenitors reveals $TCR\alpha$ enhancer silencing by HOXA}
 %\subsection{A reference epigenome of human early T cell differentiation}
