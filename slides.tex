@@ -1,10 +1,9 @@
 \def\pgfsysdriver{pgfsys-dvipdfm.def}
-\documentclass[10pt]{beamer}
+\documentclass[10pt, usenames, dvipsnames]{beamer}
 %\documentclass[10pt, aspectratio=1610]{beamer}
 \usepackage{pgfpages}
 
 \setbeameroption{show notes on second screen=right}
-%\setbeameroption{show notes on second screen}
 \usetheme[progressbar=frametitle,subsectionpage=progressbar,block=fill]{metropolis}
 
 \usepackage{appendixnumberbeamer}
@@ -18,6 +17,9 @@
 \usepgfplotslibrary{dateplot}
 \usepackage{multicol}
 \usepackage{tikz}
+\usetikzlibrary{mindmap,trees,calc,automata,positioning,arrows}
+
+
 \usepackage{listings,newtxtt}
 \lstset{basicstyle=\ttfamily, keywordstyle=\bfseries}
 \usepackage{xspace}
@@ -44,6 +46,116 @@
 \makeatother
 
 
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+  }
+
+  \usepackage{listings}
+  \definecolor{green}{rgb}{0.13, 0.55, 0.13}
+  %\definecolor{forestgreen(web)}{rgb}{0.13, 0.55, 0.13}
+  \definecolor{amethyst}{rgb}{0.6, 0.4, 0.8}
+  \definecolor{bronze}{rgb}{0.8, 0.5, 0.2}
+
+  \definecolor{maroon}{cmyk}{0, 0.87, 0.68, 0.32}
+  \definecolor{halfgray}{gray}{0.55}
+  \definecolor{ipython_frame}{RGB}{207, 207, 207}
+  \definecolor{ipython_bg}{RGB}{247, 247, 247}
+  \definecolor{ipython_red}{RGB}{186, 33, 33}
+  \definecolor{ipython_green}{RGB}{0, 128, 0}
+  \definecolor{ipython_cyan}{RGB}{64, 128, 128}
+  \definecolor{ipython_purple}{RGB}{170, 34, 255}
+
+  \lstset{
+    breaklines=true,
+    extendedchars=true,
+    literate=
+    {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+    {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+    {à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+    {À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+    {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+    {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+    {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+    {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+    {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+    {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+    {€}{{\EUR}}1 {£}{{\pounds}}1
+    }
+
+    \lstdefinelanguage{snakemake}{
+      morekeywords={access,and,break,class,continue,def,del,elif,else,except,exec,finally,for,from,global,if,import,in,is,lambda,not,or,pass,print,raise,return,try,while, rule, subworkflow},
+      morekeywords=[2]{abs,all,any,basestring,bin,bool,bytearray,callable,chr,classmethod,cmp,compile,complex,delattr,dict,dir,divmod,enumerate,eval,execfile,file,filter,float,format,frozenset,getattr,globals,hasattr,hash,help,hex,id,input,output,shell,script,run,params,snakefile,wildcard_constraints,int,isinstance,issubclass,iter,len,list,locals,long,map,max,memoryview,min,next,object,oct,open,ord,pow,property,range,raw_input,reduce,reload,repr,reversed,round,set,setattr,slice,sorted,staticmethod,str,sum,super,tuple,type,unichr,unicode,vars,xrange,zip,apply,buffer,coerce,intern},
+      sensitive=true,
+      morecomment=[l]\#,
+      morestring=[b]',
+      morestring=[b]",
+      morestring=[s]{'''}{'''},
+      morestring=[s]{"""}{"""},
+      morestring=[s]{r'}{'},
+      morestring=[s]{r"}{"},
+      morestring=[s]{r'''}{'''},
+      morestring=[s]{r"""}{"""},
+      morestring=[s]{u'}{'},
+      morestring=[s]{u"}{"},
+      morestring=[s]{u'''}{'''},
+      morestring=[s]{u"""}{"""},
+      % {replace}{replacement}{lenght of replace}
+      % *{-}{-}{1} will not replace in comments and so on
+      literate=
+      {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+      {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+      {à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+      {À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+      {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+      {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+      {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+      {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+      {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+      {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+      {€}{{\EUR}}1 {£}{{\pounds}}1
+      %
+      {^}{{{\color{ipython_purple}\^{}}}}1
+      {=}{{{\color{ipython_purple}=}}}1
+      %
+      {+}{{{\color{ipython_purple}+}}}1
+      {*}{{{\color{ipython_purple}$^\ast$}}}1
+      {/}{{{\color{ipython_purple}/}}}1
+      %
+      {+=}{{{+=}}}1
+      {-=}{{{-=}}}1
+      {*=}{{{$^\ast$=}}}1
+      {/=}{{{/=}}}1,
+      literate=
+      *{-}{{{\color{ipython_purple}-}}}1
+      {?}{{{\color{ipython_purple}?}}}1,
+      %
+      identifierstyle=\color{black}\ttfamily,
+      commentstyle=\color{ipython_cyan}\ttfamily,
+      stringstyle=\color{ipython_red}\ttfamily,
+      keepspaces=true,
+      showspaces=false,
+      showstringspaces=false,
+      rulecolor=\color{ipython_frame},
+      frame=single,
+      frameround={t}{t}{t}{t},
+      framexleftmargin=6mm,
+      numbers=left,
+      numberstyle=\tiny\color{halfgray},
+      backgroundcolor=\color{ipython_bg},
+      % extendedchars=true,
+      %basicstyle=\NoAutoSpacing\footnotesize,
+      basicstyle=\footnotesize,
+      %columns=fixed,
+      columns=fullflexible,
+      keywordstyle=\color{ipython_green}\ttfamily
+      }
+
+
+
+
 
 %\title{Thesis defence}
 \title{Soutenance de thèse}
@@ -62,23 +174,60 @@
   \def\smi{out/ln/updir/mw-gcthesis-oral/ink/title.pdf}
   \includegraphics[width=1\textwidth, height=.95\textheight, keepaspectratio]{\smi}%
   \note{Bonjour à tous, 
-  Merci ....
+  Merci d'être présent aujourd'hui pour ma soutenance de thèse.
 
-  Comme le titre de ma thèse l'indique, je vais vous parler aujourd'hui de dynamiques épigénomiques, de thymopoièse et reproductibilité. Contrairmeent à ce qu'indique le titre de ma thèse, je ne vais pas vous parler de spermatogénèse aujourd'hui afin de pouvoir aborder les autres sujets avec plus de détails.
+  %Comme le titre de ma thèse l'indique, je vais vous parler aujourd'hui de dynamiques épigénomiques, de thymopoièse et reproductibilité. Contrairement à ce qu'indique le titre de ma thèse, je ne vais pas vous parler de spermatogénèse aujourd'hui afin de pouvoir aborder les autres sujets avec plus de détails.
+
+
   %Il y a un peu plus de 4 ans, j'ai commencé à travailler en tant que bioinformaticien au TAGC, et comme la plupart des gens de cette espèce, je m'intéresse à la meilleure façon de mener des analyses de données à partir d'outils en ligne de commande. 
 
  % Sur le plan technique, l'objectif principal de ma thèse consistait à déterminer un ensemble d'outils et de méthodes permettant d'assurer la reproductibilité, l'automatisation, le partage, l'archivage, le développement simplifié, l'optimisation et la réutilisation d'analyses complexes de données volumineuses. Cet objectif générique a été couplé à des objectifs spécifiques de recherche fondamentale dans le domaine de l'épigénétique, et plus particulièrement dans l'étude de dynamiques épigénétiques de deux modèles biologiques : la thymopoïèse humaine et la spermatogénèse murine.
   }
 \end{frame}
-\begin{frame}{Table of contents}
-  \tableofcontents[hideothersubsections]
+%\begin{frame}[plain]
+%  \resizebox{!}{.8\textheight}{%
+%    \begin{tikzpicture}
+%      \path[mindmap,concept color=black,text=white]
+%      node[concept] {Thesis}
+%      [clockwise from=-30]
+%      child[concept color=green!50!black] {
+%        node[concept] {Bioinformatics}
+%        %[clockwise from=90]
+%        child { node[concept] {Reproducibility} }
+%        child { node[concept] {.*-Seq} }
+%        child { node[concept] {Data integration} }
+%      }; 
+%      [clockwise from=-180]
+%      child[concept color=blue] {
+%        node[concept] {Epigenomic dynamics}
+%        child { node[concept] {Spermatogenesis} }
+%        child { node[concept] {Thymopoiesis} }
+%      };
+%    \end{tikzpicture}
+%    }
+%\end{frame}
+%\begin{frame}[plain]
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/thesis-mind-map.pdf}
+%  \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}%
+%  \note{}%
+%\end{frame}
+\begin{frame}{Thesis summary}%[plain]
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/thesis-mind-map-dotted-spermatogenesis.pdf}
+  \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}%
+  \note{Au cours de celle-ci, je me suis intéressé à l'étude de dynamiques épigénomiques dans deux modèles biologiques. Tout d'abord, la spermatogénèse murine lors de mes deux premières années, puis la thymopopïèse humaine au cours des 20 derniers mois. J'ai choisi de vous présenter ici ce dernier travail car il n'est pas encore publié. J'aborderai dans un deuxième temps les problématiques méthodologiques rencontrées en tant que bioinformaticien pour l'analyse des données issues de séquençage à haut débit.}%
+  %µicidans le cadre de ces projets.}%
 \end{frame}
+%\begin{frame}{Table of contents}
+%  \tableofcontents[hideothersubsections]
+%\end{frame}
 \section{Epigenomic Dynamics}
 \begin{frame}{One genome, thousands phenotypes}
-  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/Ulirsch2019-hsc-lymphoid-myeloid-lineages.pdf}
-  \includegraphics[width=1\textwidth, height=0.75\textheight, keepaspectratio]{\smi}%
-  \note{La majorité des cellules d'un organisme partagent le même génome. Pourtant, différents types cellulaires expriment des programmes génétiques différents leur permettant d'assurer la spécificité de leur fonction, avec par exemple ici différents types cellulaires effecteurs du système immunitaire de mammifères. Il existe différents niveaux de régulation à l'oeuvre pour permettre l'activation et l'inactivation de ces programmes génétiques.}
-  % Puisque nous allons retrouver ces vaillants défenseurs de notre système immunitaire.
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/Ulirsch2019-fig1-recolored.pdf}
+  \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}%
+  \blfootnote{Adapted from \textit{Ulirsch et al., 2019, Nature Genetics}}
+%  \blfootnote{Ulirsch, J. C., Lareau, C. A., Bao, E. L., Ludwig, L. S., Guo, M. H., Benner, C., … Sankaran, V. G. (2019). Interrogation of human hematopoiesis at single-cell and single-variant resolution. Nature Genetics, 51(April). https://doi.org/10.1038/s41588-019-0362-6}
+  \note{La majorité des cellules d'un organisme partagent le même génome. Pourtant, chacun des types cellulaires expriment un programme génétique différent lui permettant d'assurer la spécificité de sa fonction. Ceci est illustré ici avec les types cellulaires effecteurs du système immunitaire de mammifères. 
+  Il existe plusieurs niveaux de régulation à l'oeuvre pour permettre l'activation et l'inactivation de ces programmes génétiques.}%
   % conservation des types cellulaires chez les mammifères par opposition aux autres animaux:
   % http://www.ipubli.inserm.fr/bitstream/handle/10608/4432/MS_1991_7_665.pdf
   % https://web.archive.org/web/20190916133519/http://www.ipubli.inserm.fr/bitstream/handle/10608/4432/MS_1991_7_665.pdf
@@ -86,63 +235,69 @@
 \begin{frame}{Genome Complexity: From structural organization...}
   \def\smi{out/ln/updir/mw-gcthesis-oral/ink/Dogan2018-fig1/chromosome-territories.pdf}
   \includegraphics[width=1\textwidth, height=0.75\textheight, keepaspectratio]{\smi}%
-  \note{Le génome est conservé dans le noyau sous forme de chromatine, un complexe macromoléculaire composé principalement de l'ADN et de diverses protéines le structurant. En s'intéressant de plus près au noyau de ces cellules en interphase, on peut observer la chromatine des différents chromosomes répartie en territoires distincts dans l'espace.}
+  \note{Le génome est conservé dans le noyau sous forme de chromatine, un complexe macromoléculaire composé principalement de l'ADN et de diverses protéines le structurant. En s'intéressant de plus près au noyau de ces cellules en interphase, on peut observer la chromatine des différents chromosomes répartie en territoires distincts dans l'espace.}%
+  \blfootnote{Adapted from \textit{Dogan and Liu, 2018, Nature Plants}}
+  %\blfootnote{Doğan, E. S., & Liu, C. (2018). Three-dimensional chromatin packing and positioning of plant genomes. Nature Plants, 4(8), 521–529. https://doi.org/10.1038/s41477-018-0199-5}
 \end{frame}
 \begin{frame}{Genome Complexity: From structural organization...}
   \def\smi{out/ln/updir/mw-gcthesis-oral/ink/Dogan2018-fig1/ab-compartments.pdf}
   \includegraphics[width=1\textwidth, height=0.75\textheight, keepaspectratio]{\smi}%
+  \blfootnote{Adapted from \textit{Dogan and Liu, 2018, Nature Plants}}
   \note{L'analyse de données d'interaction de type Hi-C permet de distinguer à l'intérieur de chaque chromosome des compartiments notés A et B qui sont respectivement actifs ou inactifs en fonction du type cellulaire. %associés à la chromatine ouverte et fermée respectivement.
-  }
+  }%
 \end{frame}
 \begin{frame}{Genome Complexity: From structural organization...}
   \def\smi{out/ln/updir/mw-gcthesis-oral/ink/Dogan2018-fig1/tads.pdf}
   \includegraphics[width=1\textwidth, height=0.75\textheight, keepaspectratio]{\smi}%
-  \note{A une échelle inférieure, on distingue les domaines topologiquement associés correspondants à des régions dont les différents sites sont plus fréquemment associés entre eux plutôt qu'avec ceux d'autres régions.}
+  \blfootnote{Adapted from \textit{Dogan and Liu, 2018, Nature Plants}}
+  \note{A une échelle inférieure, on distingue les domaines topologiquement associés correspondants à des régions dont les différents sites sont plus fréquemment associés entre eux plutôt qu'avec ceux d'autres régions.}%
 \end{frame}
 \begin{frame}{Genome Complexity: From structural organization...}
   \def\smi{out/ln/updir/mw-gcthesis-oral/ink/Dogan2018-fig1/chromatin-loops.pdf}
   \includegraphics[width=1\textwidth, height=0.75\textheight, keepaspectratio]{\smi}%
+  \blfootnote{Adapted from \textit{Dogan and Liu, 2018, Nature Plants}}
   \note{Ces fréquences d'interaction plus importantes pour certains sites sont la conséquence du repliement de l'ADN en boucles, repliement qui est contrôlé par la présence de complexes protéiques, représentés ici en violet.}% comprenant généralement Polycomb et/ou CTCF.}
   %https://www.igh.cnrs.fr/fr/recherche/departements/dynamique-du-genome/21-chromatine-et-biologie-cellulaire}{IGH Giaocomo Cavalli
 \end{frame}
 \begin{frame}{Genome Complexity: From structural organization...}
   \def\smi{out/ln/updir/mw-gcthesis-oral/ink/Dogan2018-fig1/custom-layout.pdf}
   \includegraphics[width=1\textwidth, height=0.75\textheight, keepaspectratio]{\smi}%
-  \note{A une échelle encore inférieure, on distingue l'ADN nucléaire enroulé autour d'octamères d'histones pour former des nucléosomes. On observe que l'espacement entre nucléosomes est variable et peut être remodelé par des mécanismes cellulaires pour moduler le niveau de condensation et l'accessibilité de l'ADN.}
+  \blfootnote{Adapted from \textit{Dogan and Liu, 2018, Nature Plants}}
+  \note{A une échelle encore inférieure, on distingue l'ADN nucléaire enroulé autour d'octamères d'histones pour former des nucléosomes. On observe que l'espacement entre nucléosomes est variable et peut être remodelé par des mécanismes cellulaires pour moduler le niveau de condensation et l'accessibilité de l'ADN.}%
 \end{frame}
 %\begin{frame}
 %  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/Dulac2010-mechanisms-involved-in-chromatin-modifications.pdf}
 %  \includegraphics[width=1\textwidth, height=0.75\textheight, keepaspectratio]{\smi}%
 %  \note{Sauter cette diapositive}
 %\end{frame}
-\begin{frame}{Genome Complexity: From structural organization to epigenetic regulation}
-  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/Cedar2011/fig2/pluripotency-state.pdf}
-  \includegraphics[width=1\textwidth, height=0.75\textheight, keepaspectratio]{\smi}%
-  \note{En regardant plus en détail un nucléosome, on peut distinguer les extrémités N-terminales des histones dépassant de la structure globulaire.%du nucléosome. 
-  Les résidus composants ces extrémités sont accessibles à des enzymes de modifications qui ont, dans le cas présent, acétylés les lysines 9 et 27 de l'histone 3, ainsi que celles de l'histone 4, et méthylés la lysine 4 de l'histone 3.}
-\end{frame}
-\begin{frame}{Genome Complexity: From structural organization to epigenetic regulation}
-  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/Cedar2011/fig2/histone-deacetylation-and-demethylation.pdf}
-  \includegraphics[width=1\textwidth, height=0.75\textheight, keepaspectratio]{\smi}%
-  \note{Les processus inverses, de déacétylation et de déméthylation des lysines sont respectivement réalisés par des histones déacétylases, en abrégé HDAC, et par une déméthylase non représentée ici.}
-\end{frame}
-\begin{frame}{Genome Complexity: From structural organization to epigenetic regulation}
-  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/Cedar2011/fig2/local-heterochromatin.pdf}
-  \includegraphics[width=1\textwidth, height=0.75\textheight, keepaspectratio]{\smi}%
-  \note{Dans ce modèle, l'histone déacétylase forme un complexe avec une méthyltransférase, noté G9A qui peut alors méthyler la lysine 9 de l'histone 3. Ceci va permettre la fixation d'une protéine HP1 dont la fonction est d'agir comme répresseur des gènes dont ils sont la cible en entrainant le remodellage de la chromatine accessible en hétérochromatine inaccessible.}
-\end{frame}
-\begin{frame}{Genome Complexity: From structural organization to epigenetic regulation}
-  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/Cedar2011/fig2/turning-off-pluripotency-genes.pdf}
-  \includegraphics[width=1\textwidth, height=0.75\textheight, keepaspectratio]{\smi}%
-  \note{L'ADN lui même peut aussi être sujet à des modifications enzymatiques. Plus particulièrement les cytosines suivies de guanine peuvent être méthylées par une enzyme de la famille des DNMT.
-
-  Dans cet exemple, la succession de ces différentes étapes de modifications de la chromatine correspond à une dynamique épigénétique observée au niveau des promoteurs de gènes de la pluripotence des cellules souches embryonnaires lorsque celles-ci s'engagent dans une voie de différentiation.
-  %Dans cet exemple, la succession de ces différentes étapes de modifications de la chromatine correspond à une dynamique épigénétique observée au niveau des promoteurs de gènes de la pluripotence des cellules souches embryonnaires lorsque celles-ci s'engagent dans une voie de différentiation.
-
-  L'étude des dynamiques épigénomiques est un domaine d'étude particulièrement vaste d'une part car les mécanismes et les acteurs moléculaires peuvent grandement différer en fonctions des modèles biologiques, d'autre part car ils ne se limitent pas qu'aux promoteurs des gènes.}
-  %  e s'intéresser aux dynamiques épigénomiques dans différents modèles biologiques puisque des mécanismes différents sont à l'oeuvre dans la régulation des programmes d'expression.}
-  %Idée: aller jusqu'au 4 puis révéler que cette dynamique épigénétique correspond à l'inactivation de gènes pluripotents. 
-\end{frame}
+%\begin{frame}{Genome Complexity: From structural organization to epigenetic regulation}
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/Cedar2011/fig2/pluripotency-state.pdf}
+%  \includegraphics[width=1\textwidth, height=0.75\textheight, keepaspectratio]{\smi}%
+%  \note{En regardant plus en détail un nucléosome, on peut distinguer les extrémités N-terminales des histones dépassant de la structure globulaire.%du nucléosome. 
+%  Les résidus composants ces extrémités sont accessibles à des enzymes de modifications qui ont, dans le cas présent, acétylés les lysines 9 et 27 de l'histone 3, ainsi que celles de l'histone 4, et méthylés la lysine 4 de l'histone 3.}
+%\end{frame}
+%\begin{frame}{Genome Complexity: From structural organization to epigenetic regulation}
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/Cedar2011/fig2/histone-deacetylation-and-demethylation.pdf}
+%  \includegraphics[width=1\textwidth, height=0.75\textheight, keepaspectratio]{\smi}%
+%  \note{Les processus inverses, de déacétylation et de déméthylation des lysines sont respectivement réalisés par des histones déacétylases, en abrégé HDAC, et par une déméthylase non représentée ici.}
+%\end{frame}
+%\begin{frame}{Genome Complexity: From structural organization to epigenetic regulation}
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/Cedar2011/fig2/local-heterochromatin.pdf}
+%  \includegraphics[width=1\textwidth, height=0.75\textheight, keepaspectratio]{\smi}%
+%  \note{Dans ce modèle, l'histone déacétylase forme un complexe avec une méthyltransférase, noté G9A qui peut alors méthyler la lysine 9 de l'histone 3. Ceci va permettre la fixation d'une protéine HP1 dont la fonction est d'agir comme répresseur des gènes dont ils sont la cible en entrainant le remodellage de la chromatine accessible en hétérochromatine inaccessible.}
+%\end{frame}
+%\begin{frame}{Genome Complexity: From structural organization to epigenetic regulation}
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/Cedar2011/fig2/turning-off-pluripotency-genes.pdf}
+%  \includegraphics[width=1\textwidth, height=0.75\textheight, keepaspectratio]{\smi}%
+%  \note{L'ADN lui même peut aussi être sujet à des modifications enzymatiques. Plus particulièrement les cytosines suivies de guanine peuvent être méthylées par une enzyme de la famille des DNMT.
+%
+%  Dans cet exemple, la succession de ces différentes étapes de modifications de la chromatine correspond à une dynamique épigénétique observée au niveau des promoteurs de gènes de la pluripotence des cellules souches embryonnaires lorsque celles-ci s'engagent dans une voie de différentiation.
+%  %Dans cet exemple, la succession de ces différentes étapes de modifications de la chromatine correspond à une dynamique épigénétique observée au niveau des promoteurs de gènes de la pluripotence des cellules souches embryonnaires lorsque celles-ci s'engagent dans une voie de différentiation.
+%
+%  L'étude des dynamiques épigénomiques est un domaine d'étude particulièrement vaste d'une part car les mécanismes et les acteurs moléculaires peuvent grandement différer en fonctions des modèles biologiques, d'autre part car ils ne se limitent pas qu'aux promoteurs des gènes.}
+%  %  e s'intéresser aux dynamiques épigénomiques dans différents modèles biologiques puisque des mécanismes différents sont à l'oeuvre dans la régulation des programmes d'expression.}
+%  %Idée: aller jusqu'au 4 puis révéler que cette dynamique épigénétique correspond à l'inactivation de gènes pluripotents. 
+%\end{frame}
 %\begin{frame}{Genome Complexity: From structural organization to epigenetic regulation}
 %  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/Cedar2011/fig4/1.pdf}
 %  \includegraphics[width=1\textwidth, height=0.75\textheight, keepaspectratio]{\smi}%
@@ -189,27 +344,44 @@
 %  \includegraphics[width=1\textwidth, height=0.75\textheight, keepaspectratio]{\smi}%
 %  \note{Si on observe majoritairement la marque H3K9me3, le gène peut être considéré comme réprimé. Pour tous ces exemples d'introduction, la région des gènes considérés est leur promoteur...}
 %\end{frame}
+%\begin{frame}{Genome Complexity: From structural organization to epigenetic regulation}
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/Ong2011.pdf}
+%  \includegraphics[width=1\textwidth, height=0.75\textheight, keepaspectratio]{\smi}%
+%  \note{TODO: Figure à retravailler car trop d'éléments qui ne m'intéressent pas dans mon propos
+%
+%  On connait ainsi aujourd'hui différentes combinaisons de modifications épigénétiques qui permettent de déceler, ou en tout cas d'avoir de forts soupçons sur la présence d'éléments fonctionnels régulateurs dans le génome autre que les promoteurs tel que:
+%  les enhancers, qui vont stimuler à distance la transcription d'un gène,
+%  les silencers, qui vont à l'inverse atténuer à distance la transcription d'un gène
+%  et les insulateurs, vont isoler les enhancers et silenceurs de leur gène cible potentiel.
+%
+%  %On peut noter au passage la présence de variant d'histones. CTCF et CBP à retirer.
+%  %Commenter figure ici
+%  %... Mais la connaissance de la présence de différentes modifications épigénétiques permet également de classifier l'ensemble du génome en éléments fonctionnels, tel que les enhancers et silenceurs. 
+%
+%  %  L'activation ou l'inactivation de ces éléments fonctionnels dans un contexte de différentiation cellulaire sain ou pathologique permet d'expliquer l'expression de programme génétique particuliers. 
+%
+%  L'étude des dynamiques épigénomiques qui gouvernent ou révèlent l'activation ou l'inactivation de ces éléments régulateurs peut permettre de retracer certains enchainement d'événements qui amènent une cellule à s'engager dans une voie de différentiation saine ou pathologique. 
+%
+%  Et c'est sur la base de ce postulat que de grands projets internationaux ont été constitués pour réaliser des cartographies épigénomiques du plus grand nombre possible de types cellulaires.
+%  }%
+%  %er quer l'idée que des mécanismes différents sont à l'oeuvre pour l'activation et l'inactivation de certains gènes. D'où l'intérêt d'étudier les mécanismes. Peut être retirer insulateur de la figure ?}
+%\end{frame}
 \begin{frame}{Genome Complexity: From structural organization to epigenetic regulation}
-  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/Ong2011.pdf}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/epigenetic-of-regulatory-elements-no-classif.pdf}
   \includegraphics[width=1\textwidth, height=0.75\textheight, keepaspectratio]{\smi}%
-  \note{TODO: Figure à retravailler car trop d'éléments qui ne m'intéressent pas dans mon propos
-
-  On connait ainsi aujourd'hui différentes combinaisons de modifications épigénétiques qui permettent de déceler, ou en tout cas d'avoir de forts soupçons sur la présence d'éléments fonctionnels régulateurs dans le génome autre que les promoteurs tel que:
-  les enhancers, qui vont stimuler à distance la transcription d'un gène,
-  les silencers, qui vont à l'inverse atténuer à distance la transcription d'un gène
-  et les insulateurs, vont isoler les enhancers et silenceurs de leur gène cible potentiel.
-
-  %On peut noter au passage la présence de variant d'histones. CTCF et CBP à retirer.
-  %Commenter figure ici
-  %... Mais la connaissance de la présence de différentes modifications épigénétiques permet également de classifier l'ensemble du génome en éléments fonctionnels, tel que les enhancers et silenceurs. 
-
-  %  L'activation ou l'inactivation de ces éléments fonctionnels dans un contexte de différentiation cellulaire sain ou pathologique permet d'expliquer l'expression de programme génétique particuliers. 
-
-  L'étude des dynamiques épigénomiques qui gouvernent ou révèlent l'activation ou l'inactivation de ces éléments régulateurs peut permettre de retracer certains enchainement d'événements qui amènent une cellule à s'engager dans une voie de différentiation saine ou pathologique. 
-
-  Et c'est sur la base de ce postulat que de grands projets internationaux ont été constitués pour réaliser des cartographies épigénomiques du plus grand nombre possible de types cellulaires.
+  \note{En regardant plus en détail les nucléosomes, on peut distinguer les extrémités N-terminales des histones dépassant de la structure globulaire. Les résidus composants ces extrémités sont accessibles à des enzymes de modifications qui peuvent notamment acetyler et méthyler les lysines ou procéder aux réactions inverses. L'ADN lui même, plus particulièrement les cytosines suivies de guanine peuvent être méthylée ou démthylées.}%
+\end{frame}
+\begin{frame}{Genome Complexity: From structural organization to epigenetic regulation}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/epigenetic-of-regulatory-elements-active-locus.pdf}
+  \includegraphics[width=1\textwidth, height=0.75\textheight, keepaspectratio]{\smi}%
+  \note{La connaissance de la présence de différentes combinaisons de ces modifications épigénétiques permet de classifier l'ensemble du génome en éléments fonctionnels tels que les promoteurs et enhancers actifs ou inactifs. Pour ce projet nous avons accès à six modifications d'histones qui concernent toutes des lysines de l'histone 3. La présence combinée de méthylation sur la lysine 4 et d'acétylation sur la lysine 27 permet notamment de détecter des enhancers actifs.
+%  L'activation ou l'inactivation de ces éléments fonctionnels dans un contexte de différentiation cellulaire sain ou pathologique peut permettre d'expliquer l'expression de programme génétique particuliers. 
   }%
-  %er quer l'idée que des mécanismes différents sont à l'oeuvre pour l'activation et l'inactivation de certains gènes. D'où l'intérêt d'étudier les mécanismes. Peut être retirer insulateur de la figure ?}
+\end{frame}
+\begin{frame}{Genome Complexity: From structural organization to epigenetic regulation}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/epigenetic-of-regulatory-elements.pdf}
+  \includegraphics[width=1\textwidth, height=0.75\textheight, keepaspectratio]{\smi}
+  \note{Au contraire, un remplacement de l'acétylation sur la lysine 27 par de la triméthylation est plutôt révélateur d'un enhancer inactif. On sait également que la déméthylation de l'ADN se retrouve principalement à la fois sur les promoteurs et les éléments régulateurs distaux actifs tel que les enhancers. L'enchainement des différentes étapes qui permettent de passer d'un locus inactif au locus actif ou vice-versa est moins bien caractérisé. L'étude des dynamiques épigénomiques correspond à l'étude de ces enchainements successifs. Elle peut permettre de retracer les événéments qui amènent une cellule à s'engager dans une voie de différentiation saine ou pathologique. Et c'est sur la base de ce postulat que de grands projets internationaux ont été constitués pour réaliser des cartographies épigénomiques du plus grand nombre possible de types cellulaires.}%
 \end{frame}
 %\begin{frame}
 %  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/ElKennani2017-histone-variants-in-mouse.pdf}
@@ -233,16 +405,63 @@
 %  \includegraphics[width=\textwidth, height=\textheight, keepaspectratio]{\smi}%
 %  \note{Parler de H4K5ac/bu H4K8ac/bu ici et évoquer l'article. Conclure sur le travail titanesque de classifier fonctionnellement toutes les marques et variants: fonctions/interactions. Poser la problématique biologique de l'étude des dynamiques épigénomiques. Etude de ce grand schéma, code épigénétique}%
 %\end{frame}
-\section{Thymopoiesis}
-%\frame{\tableofcontents[currentsection]}
-\begin{frame}[plain]
-  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/necker-collaboration.pdf}
-  \includegraphics[width=\textwidth, height=.9\textheight, keepaspectratio]{\smi}%
-  \note{Blueprint est l'un de ces consortiums auxquels ont participé les Dr Spicuglia et Asnafi afin de fournir les épigénomes des précurseurs thymiques humains. Aujourd'hui je vais vous présenter l'analyse réalisée pendant ma thèse à partir de ces données.}%
+\begin{frame}{Seeing the big epigenomic picture by mapping blood cells}
+  \begin{tikzpicture}
+    %\node[below, anchor=north] (table)
+    \node (table)
+    {\small
+    \begin{tabular}{@{}rl@{}}
+      \toprule
+      Duration                                                                               & October 2011 - April 2016                             \\ %\midrule
+      Budget                                                                                 & EUR 40 million                                        \\ %\midrule
+      Collaboration                                                                          & 41 partners from 9 EU members, Switzerland and Israel \\ %\midrule
+      Coordinator                                                                            & Prof. Dr. Henk Stunnenberg                            \\ \cmidrule(l){2-2}
+      \multirow{9}{*}{\begin{tabular}[c]{@{}r@{}}High-throughput\\sequencing-based\\approaches\end{tabular}} & H3K4me1                                               \\
+        & H3K4me3                                               \\
+        & H3K27ac                                              \\
+        & H3K27me3                                              \\
+        & H3K9me3                                               \\
+        & H3K36me3                                              \\
+        & Bisulfite                                             \\
+        & RNA                                                   \\
+        & DNAseI / FAIRE / ATAC                                 \\ \cmidrule(l){2-2} 
+        \multirow{2}{*}{Outcome}                                                            & 112 complete epigenomes                               \\
+        & 1137 partial epigenomes                               \\ \bottomrule
+    \end{tabular}
+    };
+    \node (logo) at (0, 4.1)
+    {
+      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/blueprint.pdf}
+      \includegraphics[width=.2\textwidth, keepaspectratio]{\smi}
+    };
+
+    %\node[anchor=south west, inner sep=0pt] at ($(current page.south west)-(2cm,5cm)$) 
+    %\node[anchor=center] at (current page.center) %($(current page)-(0cm,1cm)$) 
+    %\node[center= of table, anchor=west] (hemato) %at (0, 0)
+    \node (hemato) at (1.9, -0.2)
+    {
+      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/Ulirsch2019-fig1-recolored.pdf}
+      \includegraphics[width=.5\textwidth, height=.4\textheight, keepaspectratio]{\smi}%
+    };
+  \end{tikzpicture}
+  %  \end{columns}
+
+  %  \begin{columns}
+  %    \column{.5\textwidth}
+  %    \column{.5\textwidth}
+    \note{Blueprint est l'un de ces consortiums. Il a rassemblé pendant cinq ans une quarantaine de partenaires européens. Il s'agissait de produire les épigénomes de références de plus d'une centaines de types cellulaires issues de lignées hématopoiétiques saines ou de leucémies. Par épigénome de référence, on entend la production de ChIP-Seq pour ces six marques d'histones principales, l'accès au méthylome par Whole-Genome Bisulfite Sequencing, le transcriptome par RNA-Seq et l'accessibilité de la chromatine par DNAse, FAIRE ou ATAC-seq.}%
   %  Plus particulièrement, je vais vous présenter aujourd'hui une étude des dynamiques épigénomiques au cours de la thymopoïèse réalisée pendant ma thèse. Cette étude a pu être menée grâce aux données épigénétiques produites dans le cadre du projet Européen Blueprint, avec un soupçon d'Encode, un zest de Roadmap, et complémentées par des données générées hors consortiums issus d'échantillons thymiques de donneurs sains (et de patients?) de l'institut Necker.}%
-\end{frame}
-\begin{frame}{Thymopoiesis as a subset of hematopoiesis}
-  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/Ulirsch2019-fig1-recolored.pdf}
+  \end{frame}
+  %\frame{\tableofcontents[currentsection]}
+  \begin{frame}{Necker and TAGC: Blueprint collaboration and beyond}%[plain]
+    \def\smi{out/ln/updir/mw-gcthesis-oral/ink/necker-collaboration.pdf}
+    \includegraphics[width=\textwidth, height=.8\textheight, keepaspectratio]{\smi}%
+    \note{Les Dr Spicuglia et Asnafi ont participé à ce grand projet afin de fournir les épigénomes de références des précurseurs thymiques humains et de leucémies T. Ils continuent depuis la fin du consortium de produire des données complémentaires. Aujourd'hui je vais vous présenter l'analyse réalisée pendant ma thèse à partir de ces données.}%
+    %  Plus particulièrement, je vais vous présenter aujourd'hui une étude des dynamiques épigénomiques au cours de la thymopoïèse réalisée pendant ma thèse. Cette étude a pu être menée grâce aux données épigénétiques produites dans le cadre du projet Européen Blueprint, avec un soupçon d'Encode, un zest de Roadmap, et complémentées par des données générées hors consortiums issus d'échantillons thymiques de donneurs sains (et de patients?) de l'institut Necker.}%
+  \end{frame}
+  \section{Thymopoiesis}
+  \begin{frame}{Thymopoiesis as a subset of hematopoiesis}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/Ulirsch2019-fig1-recolored-thymopoiesis-highlighted.pdf}
   \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}%
   \note{Sur cette vue d'ensemble de l'hématopoïèse, la thymopoïèse est délimitée par la surface en bleu et correspond à la différentiation de progéniteurs lymphoïdes communs, noté ici CLP, en lymphocyte T CD4+ ou CD8+.}%
 \end{frame}
@@ -250,525 +469,761 @@
 \begin{frame}{The thymus, the organ of thymopoiesis}
   \def\smi{out/ln/updir/mw-gcthesis-oral/ink/thymus/1.pdf}
   \includegraphics[width=\textwidth, height=\textheight, keepaspectratio]{\smi}%
-  \note{La thymopoièse a lieu dans le thymus, représenté ici en rouge vif.}%
+  \blfootnote{Adapted from \textit{\href{https://commons.wikimedia.org/wiki/File:Diagram_showing_the_position_of_the_thymus_gland_CRUK_362.svg}{Cancer UK Research / Wikimedia Commons}}}
+  \note{La thymopoièse a lieu dans le thymus, représenté ici en rouge.}%
 \end{frame}
+%\begin{frame}{The thymus, a critical organ for functional adaptive immune system}
 \begin{frame}{The thymus, the organ of thymopoiesis}
-  %\begin{frame}{The thymus, a critical organ for functional adaptive immune system}
   \def\smi{out/ln/updir/mw-gcthesis-oral/ink/thymus/2.pdf}
   \includegraphics[width=\textwidth, height=\textheight, keepaspectratio]{\smi}%
-    \note{Cet organe est constitué de lobules...}%
-  \end{frame}
-  \begin{frame}{The thymus, the organ of thymopoiesis}
-    %\begin{frame}{The thymus, a critical organ for functional adaptive immune system}
-    \def\smi{out/ln/updir/mw-gcthesis-oral/ink/thymus/3.pdf}
-    \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    %\begin{frame}{The thymus, a critical organ for functional adaptive immune system}
-    \begin{frame}{The thymus, the organ of thymopoiesis}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/thymus/4.pdf}
-      \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}%
-      \note{...qui sont le coeur du parcours de différentes étapes que vont suivre les précurseurs thymiques pour atteindre le stade de lymphocyte T mature quittant le thymus. La plupart des cellules meurent dans le processus et on peut également voir en pointillées d'autres voies de différentiation minoritaires qui restent possibles à certains stades.}%
-    \end{frame}
-    \begin{frame}{Nomenclature for major T cell differentiation stages}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/thymus/5.pdf}
-      \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}%
-      \note{Dans le cadre de notre étude, nous avons accès à différents stades sur la base des marqueurs de surface utilisé pour le tri cellulaire. Comme les noms ne correspondent pas forcément avec la nomenclature principale de la littérature, vous avez l'équivalence entre les deux nomenclatures avec le code couleur.}%
-    \end{frame}
-    \begin{frame}{Available experimental approaches}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/thymus/6.pdf}
-      \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}%
-      \note{Sur ces échantillons, nous avons accès aux ChIP-Seq des six marques d'histones jugées principales par les grands consortiums; ainsi que du RNA-seq, du whole-genome bisulfite seq, et de l'atac-seq pour les stades les plus précoces. Tout ceci à l'exception du stade ISP pour lequel nous n'avons accès qu'au transcriptome.}%
-    \end{frame}
-    \begin{frame}{Objectives}
-      \begin{itemize}
-        \item Replace thymic subpopulations in the epigenomic landscape of hematopoiesis
-        \item Shed light on epigenomic dynamics during thymopoiesis with a focus on distal regulatory regions and enhancers
-      \end{itemize}
-      \note{A partir de ces données, nous avons deux objectifs principaux: premièrement de replacer les populations thymiques dans le paysage épigénomique de l'hématopoièse, principalement afin de fournir la preuve de la pertinence des données générées et leur utilité pour l'étude par la communauté scientifique de mécanismes épigénomiques et des réseaux de régulations en jeu lors de la différentation des lymphocytes T.
+  \blfootnote{Taken from \textit{\href{https://www.dartmouth.edu/~anatomy/Histo/lab_6/lymphoid/DMS117/popup.html}{Darthmouth College}}}
+  \note{Cet organe est constitué de lobules...}%
+\end{frame}
+%\begin{frame}{The thymus, a critical organ for functional adaptive immune system}
+\begin{frame}{The thymus, the organ of thymopoiesis}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/thymus/3.pdf}
+  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}%
+  \blfootnote{Taken from \textit{\href{https://www.dartmouth.edu/~anatomy/Histo/lab_6/lymphoid/DMS117/popup.html}{Darthmouth College}}}
+\end{frame}
+\begin{frame}{The thymus, the organ of thymopoiesis}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/thymus/4.pdf}
+  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}%
+  \blfootnote{Taken from \textit{\href{https://www.dartmouth.edu/~anatomy/Histo/lab_6/lymphoid/DMS117/popup.html}{Rothenberg et al., 2008, Nature Reviews Immunology}}}
+  %Rothenberg, E. V., Moore, J. E., & Yui, M. A. (2008). Launching the T-cell-lineage developmental programme. Nature Reviews Immunology, 8(1), 9–21. https://doi.org/10.1038/nri2232
+  \note{...qui sont le coeur du parcours de différentes étapes que vont suivre les précurseurs thymiques pour atteindre le stade de lymphocyte T mature quittant le thymus. La plupart des cellules meurent dans le processus et on peut également voir en pointillées d'autres voies de différentiation minoritaires qui restent possibles à certains stades.}%
+\end{frame}
+\begin{frame}{Nomenclature for major T cell differentiation stages}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/thymus/5.pdf}
+  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}%
+  \note{Dans le cadre de notre étude, nous avons accès à différents stades sur la base des marqueurs de surface utilisé pour le tri cellulaire. Vous pouvez voir avec le code couleur une équivalence entre, à droite, la nomenclature des stades pour l'homme, et à gauche, celle analogue chez la souris.}%
+\end{frame}
+\begin{frame}{Available experimental approaches}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/thymus/6.pdf}
+  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}%
+  \note{Nous avons accès aux épigénomes de référence pour cinq de ces stades avec pour exception le stade ISP pour lequel nous n'avons accès qu'au transcriptome.
+  }%
+\end{frame}
+\begin{frame}{Objectives}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/objectives.pdf}
+  \includegraphics[width=\textwidth, height=.8\textheight, keepaspectratio]{\smi}%
+  \note{A partir de ces données, notre premier objectif est d'intégrer toutes les données disponibles dans la littérature relative à l'hématopoièse afin de replacer les populations thymiques dans le paysage épigénomique de ce modèle. Ceci nous permettra de fournir des arguments sur la pertinence des données générées et de leur utilité pour l'étude
+  %par la communauté scientifique 
+  de mécanismes épigénomiques
+  %et des réseaux de régulations
+  en jeu lors de la différentation des lymphocytes T.
+  Il s'agit ensuite de procéder nous même à une de ces études de dynamique épigénomique, avec une attention particulière portée aux éléments régulateurs distaux et aux enhanceurs, afin d'identifier de nouveaux méchanismes de régulation épigénétique.
+  }%
+\end{frame}
+\subsection{A new reference epigenome of human early T cell differentiation}
+%\subsection{Validation of newly-generated reference epigenomes of T cell differentiation}
+%\begin{frame}{Whole-Genome Bisulfite-Seq dataset}
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/wgbs/matrix.pdf}
+%  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}%
+%  \note{}%
+%\end{frame}
+%\begin{frame}{A consistent methylome landscape of hematopoiesis}
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/wgbs/matrix-tsne.pdf}
+%  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}%
+%  \note[item]{Retrieve CpG methylation calls for all 135 Blueprint hematopoietic samples as bigwig files}%
+%  \note[item]{Convert calls to matrix}%
+%  \note[item]{Remove CpG overlapping repeats from repeatMasker, or MXY chromosomes}%
+%  \note[item]{Perform t-SNE on matrix}%
+%\end{frame}
+%\begin{frame}{\normalsize Chromatin segmentation as a summary of epigenomic landscape}
+\begin{frame}{Epigenomic landscape summarized by chromatin segmentation}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/matrix-model.pdf}
+  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}%
+  \note{Comme dit en introduction, il est possible de classifier l'ensemble des régions du génome en fonction de leur combinaison de modifications épigénétiques. Un modèle simple à 11 état est représenté ici, et une modèle encore plus simplifié à 5 états à droite. 
+  %Définir region = dynamic region. 
+  Pour représenter de manière synthétique l'ensemble des épigénomes disponibles, on peut produire une matrice qui contient pour chaque région du génome l'état qui lui correspond pour chacun des échantillons.}%
+\end{frame}
+\begin{frame}{A consistent epigenomic landscape of hematopoiesis}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/matrix-mca.pdf}
+  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}%
+  \note{On peut ensuite projeter en deux dimensions les échantillons selon les composantes principales de la variance. Ceci nous permet de voir que ces deux composantes principales sont associées à la myéloide et à la lignée  lymphoide. En particulier, nos échantillons thymiques, en bleu clair se retrouvent de manière cohérente entre les cellules souches hématopoiétiques et les lymphocytes T périphériques.}%
+\end{frame}
+%  \begin{frame}{\normalsize Enrichment analysis of active enhancers highlights cell specificities}
+\begin{frame}{Enrichment analysis of active enhancers highlights lineage-specific signatures}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/msigdb-model.pdf}
+  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}%
+  \note{Pour visualiser les signatures épigénétiques associées à chaque type cellulaire, on peut extraire les régions classifiées comme étant des enhancers actifs, puis réaliser une analyse d'enrichissement fonctionnel basée sur l'outil GREAT. Ceci montre qu'une signature specifique aux lymphocytes T est bien décelable à partir des données de modifications d'histones.}%
+\end{frame}
+%\begin{frame}{Chromatin segmentation meets expected epigenetics status for known cell-type specific genes} 
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/genome-view/hematopoiesis/hsc-marker.pdf}
+%  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
+%\end{frame}
+\begin{frame}{Chromatin segmentation meets expected epigenetics status for known cell-type specific genes} 
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/genome-view/hematopoiesis/hsc-t-markers.pdf}%
+  \note{Une façon simple de visualiser au niveau des gènes ces signatures spécifiques consiste à regarder les tracks des états chromatiniens au niveau de gènes connus pour être spécifiques de certains types cellulaires. Ici la manière la plus rapide de lire ces résultats est de s'intéresser aux états en jaune associés aux TSS et promoteurs actifs. On peut ainsi voir que le promoteur du gène CD34 n'est actif que dans les cellules souches hématopoiétiques et qu'il commence à s'inactiver au stade CD34 thymique. A l'inverse les promoteurs des gènes CD3D et CD3G ne sont actifs que pour les cellules de la lignée lymphocytaire T.}%
+  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
+\end{frame}
+%\begin{frame}{Chromatin segmentation meets expected epigenetics status for known cell-type specific genes} 
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/genome-view/hematopoiesis/b-marker.pdf}
+%  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
+%\end{frame}
+%\begin{frame}{Chromatin segmentation meets expected epigenetics status for known cell-type specific genes} 
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/genome-view/hematopoiesis/b-myeloid-markers.pdf}
+%  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
+%\end{frame}
+\begin{frame}{A consistent epigenomic landscape of thymopoiesis}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/both-mca.pdf}
+  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}%
+  \note{A gauche, sur la projection présentée précedemment, il n'est pas possible de discriminer ces échantillons thymiques des lymphocytes T périphériques. Pour vérifier que cette discrimination puisse être possible, nous reprojetons les échantillons sur les axes principaux de la variance, mais cette fois en ne considérant que la lignée T. Ceci nous permet cette fois de bien distinguer les thymocytes sinple positifs des cellules périphériques et nous révèlent un chemin de différentiation plausible.}%
+\end{frame}
+\begin{frame}{A progressive loss of plasticity during differentiation}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/riverplot-model.pdf}
+  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}%
+  \note{Pour synthétiser la dynamique épigénomique globale ayant lieu au cours de la différentiation T, on représente la proportion de régions dynamiques au cours de cette différentiation associée à l'un des 5 états chromatiniens condensés. Dans l'ensemble, on observe une transition d'une majeure partie de ces régions d'un statut actif à un statut hétérochromatinien inactif. Cette transition pourrait s'expliquer par la perte de plasticité ayant lieu lors de la différentiation.}%
+\end{frame}
+%\begin{frame}{A progressive loss of plasticity during differentiation}
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/riverplot-heatmap.pdf}
+%  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
+%\end{frame}
+%\begin{frame}{Chromatin segmentation meets expected epigenetics status for known cell-type specific genes}
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/genome-view/t-lineage/1.pdf}
+%  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
+%\end{frame}
+%\begin{frame}{Chromatin segmentation meets expected epigenetics status for known cell-type specific genes}
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/genome-view/t-lineage/2.pdf}
+%  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
+%\end{frame}
+%\begin{frame}{Chromatin segmentation meets expected epigenetics status for known cell-type specific genes}
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/genome-view/t-lineage/3.pdf}
+%  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
+%\end{frame}
+%\begin{frame}{Chromatin segmentation meets expected epigenetics status for known cell-type specific genes}
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/genome-view/t-lineage/4.pdf}
+%  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
+%\end{frame}
+%\begin{frame}{Chromatin segmentation meets expected epigenetics status for known cell-type specific genes}
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/genome-view/t-lineage/5.pdf}
+%  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
+%\end{frame}
+%\begin{frame}{Chromatin segmentation meets expected epigenetics status for known cell-type specific genes}
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/genome-view/t-lineage/6.pdf}
+%  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}%
+%  \note{Overall, our analysis of hematopoietic reference epigenomes reliably recapitulates hematopietic chromatin signatures and accurately captures the main biological identities of thymic T cell precursors, demonstrating that our epigenomic data provide an excellent resource to study the regulatory networks underlying early T cell differentiation in humans.}%
+%\end{frame}
+\subsection{Epigenomic dynamics of distal regulatory regions}
+\begin{frame}{DNA methylation dynamics of distal regions}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/hypometh-clusters/clusters.pdf}
+  \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}%
+  %  \note{Dans la mesure ou différentes modifications épigénétiques sont associés aux régions régulatrices }
+\end{frame}
+\begin{frame}{DNA hypomethylation is a hallmark of distal regulatory regions...}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/hypometh-clusters/histone-marks.pdf}
+  \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}%
+  \note{Chaine de production des données semble cohérente avec ce que l'on attend de la variance entre les échantillons. On peut donc passer à une analyse exploratoire des jeux de données.}%
+\end{frame}
+\begin{frame}{DNA hypomethylation is a hallmark of distal regulatory regions...}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/hypometh-clusters/rna-go.pdf}
+  \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
+\end{frame}
+%\begin{frame}{DNA methylation dynamics of distal regions}
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/hypometh-clusters/1.pdf}
+%  \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}%
+%  %  \note{Dans la mesure ou différentes modifications épigénétiques sont associés aux régions régulatrices }
+%\end{frame}
+%\begin{frame}{DNA hypomethylation as a hallmark of distal regulatory regions...}
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/hypometh-clusters/2.pdf}
+%  \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}%
+%  \note{Chaine de production des données semble cohérente avec ce que l'on attend de la variance entre les échantillons. On peut donc passer à une analyse exploratoire des jeux de données.}%
+%\end{frame}
+%\begin{frame}{DNA hypomethylation as a hallmark of distal regulatory regions...}
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/hypometh-clusters/3.pdf}
+%  \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
+%\end{frame}
+%\begin{frame}{DNA hypomethylation as a hallmark of distal regulatory regions...}
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/hypometh-clusters/4.pdf}
+%  \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}%
+%  \note{On peut également chercher à associer les régions distales avec les gènes à proximité. Une façon la plus simple étant de les associés au gène le plus proche en amont et au gène le plus proche en aval de la région distale.}%
+%\end{frame}
+%\begin{frame}{DNA hypomethylation as a hallmark of distal regulatory regions...}
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/hypometh-clusters/5.pdf}
+%  \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
+%\end{frame}
+%\begin{frame}{DNA hypomethylation as a hallmark of distal regulatory regions...}
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/hypometh-clusters/6.pdf}
+%  \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
+%\end{frame}
+%\begin{frame}{DNA hypomethylation as a hallmark of distal regulatory regions \emph{mostly} irrespective of their activation status in T cells}
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/h3k27ac-clusters/1.pdf}
+%  \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}%
+%  \note{Discussion sur la notion de pic, artefacts visibles dans la dynamique
+%  }%
+%  %  > 449+1156+764+560+679+1973
+%  %  [1] 5581
+%  %  > 
+%  %
+%  %  > 218+641+897+956
+%  %  [1] 2712
+%  %
+%  %  > 5581/(5581+2712)
+%  %  [1] 0.6729772
+%  %
+%\end{frame}
+%\begin{frame}{DNA hypomethylation is a hallmark of distal regulatory regions mostly irrespective of their activation status in T cells}
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/h3k27ac-clusters/2.pdf}
+%  \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
+%\end{frame}
+%\begin{frame}{DNA hypomethylation is a hallmark of distal regulatory regions mostly irrespective of their activation status in T cells}
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/h3k27ac-clusters/3.pdf}
+%  \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
+%\end{frame}
+\begin{frame}{DNA hypomethylation is a hallmark of distal regulatory regions mostly irrespective of their activation status in T cells}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/h3k27ac-clusters/4.pdf}
+  \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
+\end{frame}
+\begin{frame}{DNA hypomethylation is a hallmark of distal regulatory regions mostly irrespective of their activation status in T cells}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/h3k27ac-clusters/5.pdf}
+  \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
+\end{frame}
+\begin{frame}{DNA hypomethylation is a hallmark of distal regulatory regions mostly irrespective of their activation status in T cells}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/genome-view/enhancers/repressed.pdf}
+  \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
+\end{frame}
+\begin{frame}{DNA hypomethylation is a hallmark of distal regulatory regions mostly irrespective of their activation status in T cells}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/genome-view/enhancers/repressed-activated.pdf}
+  \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
+\end{frame}
+%\begin{frame}{DNA hypomethylation as a hallmark of distal regulatory regions mostly irrespective of their activation status in T cells}
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/genome-view/enhancers/3.pdf}
+%  \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
+%\end{frame}
+\begin{frame}{Chromatin opening dynamics of distal regions in early T cell differentiation...}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/atac-clusters/atac.pdf}
+  \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
+\end{frame}
+\begin{frame}{Chromatin opening dynamics of distal regions in early T cell differentiation match expected biological processes} 
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/atac-clusters/atac-gobp.pdf}
+  \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
+\end{frame}
+\begin{frame}{Chromatin opening dynamics of distal regions in early T cell differentiation match expected transcription factor motifs} 
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/atac-clusters/atac-motifs.pdf}
+  \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
+\end{frame}
+\begin{frame}{Dynamically open distal regions in early T cell differentiation are always hypomethylated}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/atac-clusters/atac-wgbs.pdf}
+  \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
+\end{frame}
+\begin{frame}{Constitutively open chromatin distal regions in early T cell differentiation exhibits H3K27ac dynamics...}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/atac-clusters/atac-wgbs-h3k27ac.pdf}
+  \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
+\end{frame}
+\begin{frame}{Constitutively open chromatin distal regions in early T cell differentiation exhibits H3K27ac dynamics...}
+  %\def\smi{out/ln/updir/mw-gcthesis-oral/ink/atac-clusters/atac-wgbs-h3k27ac.pdf}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/atac-clusters/only-h3k27ac-only-casero.pdf}
+  \includegraphics[width=\textwidth, height=.8\textheight, keepaspectratio]{\smi}
+\end{frame}
+\begin{frame}{Constitutively open chromatin distal regions in early T cell differentiation exhibits H3K27ac dynamics associated with transcription of nearby genes}
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/atac-clusters/h3k27ac.pdf}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/atac-clusters/rnaseq-h3k27ac-only-casero.pdf}
+  \includegraphics[width=\textwidth, height=.8\textheight, keepaspectratio]{\smi}
+\end{frame}
+%\begin{frame}{Constitutively open chromatin distal regions in early T cell differentiation exhibits H3K27ac dynamics associated with transcription of nearby genes}
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/atac-clusters/rnaseq-h3k27ac-no-casero.pdf}
+%  \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
+%\end{frame}
+%\begin{frame}{Constitutively open chromatin distal regions in early T cell differentiation exhibits H3K27ac dynamics associated with transcription of nearby genes}
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/atac-clusters/rnaseq-h3k27ac-with-casero.pdf}
+%  \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
+%\end{frame}
+\begin{frame}{Differential expression analysis...}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/atac-clusters/casero-violin-barplot.pdf}
+  \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
+\end{frame}
+\begin{frame}{Differential expression analysis highlights genes associated with a dynamic putative enhancer}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/atac-clusters/casero-violin-barplot-top-fc.pdf}
+  \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
+\end{frame}
+%\begin{frame}{TRAC, is even the top one from all genes}
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/casero-dear.pdf}
+%  \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}%
+%  \note{les gènes avec la plus grande variation d'expression sont régulés par la méthylation, mais le top1 repose sur un autre mécanisme car il est toujours hypométhylé.}%
+%\end{frame}
+%\subsection{E\textalpha}
+\subsection{Epigenetic regulation of TCRA locus}
+\begin{frame}{Epigenetic dynamics of TCRA locus}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/genome-view/tcra.pdf}
+  \includegraphics[width=\textwidth, height=.9\textheight, keepaspectratio]{\smi}
+\end{frame}
+\begin{frame}{Activators binds TCRA enhancer in early T cell differentiation...}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/ea-tf-mouse-chip.pdf}
+  \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}%
+\end{frame}
+\begin{frame}{Activators binds TCRA enhancer in early T cell differentiation but the locus activates late}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/ea-tf-mouse.pdf}
+  \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}%
+\end{frame}
+\begin{frame}[standout]
+  Looking for a potential candidate repressor
+\end{frame}
+\begin{frame}{\emph{TLX homeodomain oncogenes mediate} T cell maturation arrest in T-ALL via interaction with ETS1 and \emph{suppression of TCR\textalpha{} gene expression}}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/King2012-fig1.png}
+  \includegraphics[width=\textwidth, height=.7\textheight, keepaspectratio]{\smi}
+  \blfootnote{Original discovery by \textit{Dadi, Spicuglia, Asnafi et al., 2012, Cancer Cell}}
+  \blfootnote{Figure taken from \textit{King, Ntziachristos \& Aifantis, 2012, Cancer Cell}}
+  %King, B., Ntziachristos, P., & Aifantis, I. (2012). Hijacking T Cell Differentiation: New Insights in TLX Function in T-ALL. Cancer Cell, 21(4), 453–455. https://doi.org/10.1016/j.ccr.2012.03.026
+\end{frame}\begin{frame}{Looking for a potential candidate repressor in transcriptomic data...}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/rna-clusters/all.pdf}
+  \includegraphics[width=\textwidth, height=.9\textheight, keepaspectratio]{\smi}
+\end{frame}
+\begin{frame}{Looking for a potential candidate repressor in transcriptomic data highlights HOXA family genes}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/rna-clusters/c13-tf.pdf}
+  \includegraphics[width=\textwidth, height=.65\textheight, keepaspectratio]{\smi}
+\end{frame}
+\begin{frame}{Mature T-lymphoblastic leukemias provide another evidence for Homeobox family genes repressive action on E\textalpha{}}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/tall/H3K27ac_HOXA5-9_TLX1_TLX3_ealpha_barplot.png}
+  %\def\smi{out/ln/updir/mw-gcthesis-oral/ink/tall/H3K27ac_HOXA9_TLX1_TLX3_ealpha_barplot_recolored_trimmed.png}
+  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}%
+  \note{Classes}%
+\end{frame}
+\begin{frame}{Mature T-lymphoblastic leukemias provide another evidence for Homeobox family genes repressive action on E\textalpha{}}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/tall/ealpha_h3k27ac_groups.pdf}
+  %\def\smi{out/ln/updir/mw-gcthesis-oral/ink/tall/H3K27ac_HOXA5-9_TLX1_TLX3_ealpha_barplot.png}
+  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}%
+  %\begin{tikzpicture}[overlay, remember picture]
+  %  \node at (current page) 
+  %  {
+  %    %\def\smi{out/ln/updir/mw-gcthesis-oral/ink/tall/dot-box-violin-plot-H3K27ac-ealpha.pdf}
+  %    \includegraphics[width=\textwidth, height=.65\textheight, keepaspectratio]{\smi}
+  %  };
+  %\end{tikzpicture}
+  \note{Boxplot}%
+\end{frame}
+  \begin{frame}[standout]
+    HOXA5-9 genes repression validated by biological approaches from Necker collaborators
+    %{Looking for a potential candidate repressor in transcriptomic data highlights HOXA family genes validated by collaborators biological approaches}
+  %Undisclosed, but...
+  %\def\smi{out/ln/updir/mw-gcthesis-oral/ink/rna-clusters/c13-tf.pdf}
+  %\includegraphics[width=\textwidth, height=.65\textheight, keepaspectratio]{\smi}
+\end{frame}
+\begin{frame}{Mechanistic model for E\textalpha{} activation in T cell differentiation}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/Highlight_HOXA_Blueprint_paper.pdf}
+  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}%
+  \note{Classes}%
+\end{frame}
+%\begin{frame}{Key results}
+%  \begin{itemize}
+%    \item A reference epigenome of human early T cell differentiation has been generated
+%      \begin{itemize}
+%        \item Thymic subpopulations exhibit consistent epigenomic landscape when comparing between them, and between all HSC lineages
+%        \item Differentiation from HSC to mature T cell lineage is associated with a shift from enhancers and transcribed regions to heterochromatin
+%          %  \end{itemize}
+%        \item DNA demethylation is a hallmark of distal regulatory elements irrespective of their activation status in T cells
+%          \begin{itemize}
+%            \item Distal hypomethylated regions are predominantly (77\%) constitutively demethylated accross thymic subpopulations
+%            \item Dynamic distal hypomethylated regions are associated with higher level of H3K27ac and H3K4me1, and higher expression level of nearest genes
+%            \item Distal regions losing methylation during T cell differentiation are associated with T cell functions whereas constitutively hypomethylated regions are mainly associated with other hematopoietic functions
+%          \end{itemize}
+%        \item Chromatin opening precedes enhancer activation
+%        \item The TCRA enhancer (Eα) is in an open but epigenetically silent configuration in immature thymocytes
+%        \item The HOXA locus is progressively repressed during early T cell differentiation
+%        \item HOXA5-9 proteins repress Eα activity via their homeodomain
+%        \item HOXA9 overexpression imposes developmental bias towards γδ T cell lineage
+%        \item Homeodomain protein deregulation leads to TCRγδ bias in human T-ALL
+%  \end{itemize}
+%\end{frame}
+\section{Reproducibility}
+\begin{frame}{A trending topic}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/reproducibility/pubmed_trend_reproducibility_crisis.pdf}
+  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}%
+  %\blfootnote{Data gathered using: Alexandru Dan Corlan. Medline trend: automated yearly statistics of PubMed results for any query, 2004}
+  %  \note{Cela fait maintenant 20 minutes que l'on partage ce moment, je vais un peu me livrer et vous parler }
+  % JE ne vous ai pas tout dit. pour avoir accès à tous les détails, il faut aller regarder dans le code.
+\end{frame}
+%\frame{\tableofcontents[currentsection]}
+\begin{frame}{Defining reproduciblity}
+  \blfootnote{From \href{https://doi.org/10.1108/CG-10-2012-0073}{Goodman et al., 2016, Science Translational Medicine}}
+  %Goodman, S. N., Fanelli, D., \& Ioannidis, J. P. A. (2016). What does research reproducibility mean?, 8(341). \url{https://doi.org/10.1108/CG-10-2012-0073}}
+  \begin{itemize}
+    \item Methods reproducibility: provide sufficient detail about procedures and data so that the same procedures could be exactly repeated.
+    \item Results reproducibility: obtain the same results from an independent study with procedures as closely matched to the original study as possible.
+    \item Inferential reproducibility: draw the same conclusions from either an independent replication of a study or a reanalysis of the original study.
+  \end{itemize}
+\end{frame}
+%\begin{frame}{Defining reproduciblity}
+%  (Goodman et al. 2016)
+%  \begin{itemize}
+%    \item Methods reproducibility: provide sufficient detail about procedures and data so that the same procedures could be exactly repeated.
+%      \begin{itemize}
+%        \item In bioinformatics: all code, dataset and software needed to produce a given set of results are available and usable by others.
+%      \end{itemize}
+%    \item \textcolor{gray}{Results reproducibility: obtain the same results from an independent study with procedures as closely matched to the original study as possible.}
+%    \item \textcolor{gray}{Inferential reproducibility: draw the same conclusions from either an independent replication of a study or a reanalysis of the original study.}
+%  \end{itemize}
+%\end{frame}
+\begin{frame}{Main requirements for \emph{methods} reproducibility}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/reproducibility/arrow_reproducibility.pdf}
+  \includegraphics[width=.55\textwidth, height=.95\textheight, keepaspectratio]{\smi}
 
-      Deuxièmement, de procéder nous même à une étude de dynamique épigénomique avec une attention particulière portée aux éléments régulateurs distaux et aux enhanceurs.
-      }%
-    \end{frame}
-    \subsection{Validation of newly-generated reference epigenomes of T cell differentiation}
-    \begin{frame}{Whole-Genome Bisulfite-Seq dataset}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/wgbs/matrix.pdf}
-      \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}%
-      \note{Hello}%
-    \end{frame}
-    \begin{frame}{A consistent methylome landscape of hematopoiesis}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/wgbs/matrix-tsne.pdf}
-      \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}%
-      \note[item]{Retrieve CpG methylation calls for all 135 Blueprint hematopoietic samples as bigwig files}%
-      \note[item]{Convert calls to matrix}%
-      \note[item]{Remove CpG overlapping repeats from repeatMasker, or MXY chromosomes}%
-      \note[item]{Perform t-SNE on matrix}%
-    \end{frame}
-    %\begin{frame}{\normalsize Chromatin segmentation as a summary of epigenomic landscape}
-    \begin{frame}{Epigenomic landscape summarized by chromatin segmentation}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/matrix-model.pdf}
-      \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}%
-      \note{Définir region = dynamic region. A réfléchir}%
-    \end{frame}
-    \begin{frame}{A consistent epigenomic landscape of hematopoiesis}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/matrix-mca.pdf}
-      \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    %  \begin{frame}{\normalsize Enrichment analysis of active enhancers highlights cell specificities}
-    \begin{frame}{Enrichment analysis of active enhancers highlights lineage-specific signatures}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/msigdb-model.pdf}
-      \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{Chromatin segmentation meets expected epigenetics status for known cell-type specific genes} 
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/genome-view/hematopoiesis/hsc-marker.pdf}
-      \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{Chromatin segmentation meets expected epigenetics status for known cell-type specific genes} 
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/genome-view/hematopoiesis/hsc-t-markers.pdf}
-      \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{Chromatin segmentation meets expected epigenetics status for known cell-type specific genes} 
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/genome-view/hematopoiesis/b-marker.pdf}
-      \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{Chromatin segmentation meets expected epigenetics status for known cell-type specific genes} 
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/genome-view/hematopoiesis/b-myeloid-markers.pdf}
-      \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{A consistent epigenomic landscape of thymopoiesis}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/both-mca.pdf}
-      \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{A progressive loss of plasticity during differentiation}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/riverplot-model.pdf}
-      \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{A progressive loss of plasticity during differentiation}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/riverplot-heatmap.pdf}
-      \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{Chromatin segmentation meets expected epigenetics status for known cell-type specific genes}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/genome-view/t-lineage/1.pdf}
-      \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{Chromatin segmentation meets expected epigenetics status for known cell-type specific genes}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/genome-view/t-lineage/2.pdf}
-      \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{Chromatin segmentation meets expected epigenetics status for known cell-type specific genes}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/genome-view/t-lineage/3.pdf}
-      \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{Chromatin segmentation meets expected epigenetics status for known cell-type specific genes}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/genome-view/t-lineage/4.pdf}
-      \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{Chromatin segmentation meets expected epigenetics status for known cell-type specific genes}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/genome-view/t-lineage/5.pdf}
-      \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{Chromatin segmentation meets expected epigenetics status for known cell-type specific genes}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/genome-view/t-lineage/6.pdf}
-      \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}%
-      \note{Overall, our analysis of hematopoietic reference epigenomes reliably recapitulates hematopietic chromatin signatures and accurately captures the main biological identities of thymic T cell precursors, demonstrating that our epigenomic data provide an excellent resource to study the regulatory networks underlying early T cell differentiation in humans.}%
-    \end{frame}
-    \subsection{Epigenomic dynamics of distal regulatory regions}
-    \begin{frame}{DNA methylation dynamics of distal regions}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/hypometh-clusters/1.pdf}
-      \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}%
-      %  \note{Dans la mesure ou différentes modifications épigénétiques sont associés aux régions régulatrices }
-    \end{frame}
-    \begin{frame}{DNA hypomethylation as a hallmark of distal regulatory regions...}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/hypometh-clusters/2.pdf}
-      \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}%
-      \note{Chaine de production des données semble cohérente avec ce que l'on attend de la variance entre les échantillons. On peut donc passer à une analyse exploratoire des jeux de données.}%
-    \end{frame}
-    \begin{frame}{DNA hypomethylation as a hallmark of distal regulatory regions...}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/hypometh-clusters/3.pdf}
-      \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{DNA hypomethylation as a hallmark of distal regulatory regions...}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/hypometh-clusters/4.pdf}
-      \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}%
-      \note{On peut également chercher à associer les régions distales avec les gènes à proximité. Une façon la plus simple étant de les associés au gène le plus proche en amont et au gène le plus proche en aval de la région distale.}%
-    \end{frame}
-    \begin{frame}{DNA hypomethylation as a hallmark of distal regulatory regions...}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/hypometh-clusters/5.pdf}
-      \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{DNA hypomethylation as a hallmark of distal regulatory regions...}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/hypometh-clusters/6.pdf}
-      \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{DNA hypomethylation as a hallmark of distal regulatory regions \emph{mostly} irrespective of their activation status in T cells}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/h3k27ac-clusters/1.pdf}
-      \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}%
-      \note{Discussion sur la notion de pic, artefacts visibles dans la dynamique
-      }%
-      %  > 449+1156+764+560+679+1973
-      %  [1] 5581
-      %  > 
-      %
-      %  > 218+641+897+956
-      %  [1] 2712
-      %
-      %  > 5581/(5581+2712)
-      %  [1] 0.6729772
-      %
-    \end{frame}
-    \begin{frame}{DNA hypomethylation as a hallmark of distal regulatory regions mostly irrespective of their activation status in T cells}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/h3k27ac-clusters/2.pdf}
-      \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{DNA hypomethylation as a hallmark of distal regulatory regions mostly irrespective of their activation status in T cells}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/h3k27ac-clusters/3.pdf}
-      \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{DNA hypomethylation as a hallmark of distal regulatory regions mostly irrespective of their activation status in T cells}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/h3k27ac-clusters/4.pdf}
-      \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{DNA hypomethylation as a hallmark of distal regulatory regions mostly irrespective of their activation status in T cells}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/h3k27ac-clusters/5.pdf}
-      \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{DNA hypomethylation as a hallmark of distal regulatory regions mostly irrespective of their activation status in T cells}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/genome-view/enhancers/1.pdf}
-      \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{DNA hypomethylation as a hallmark of distal regulatory regions mostly irrespective of their activation status in T cells}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/genome-view/enhancers/2.pdf}
-      \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{DNA hypomethylation as a hallmark of distal regulatory regions mostly irrespective of their activation status in T cells}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/genome-view/enhancers/3.pdf}
-      \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{Chromatin opening dynamics of distal regions in early T cell differentiation...}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/atac-clusters/atac.pdf}
-      \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{Chromatin opening dynamics of distal regions in early T cell differentiation match expected biological processes} 
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/atac-clusters/atac-gobp.pdf}
-      \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{Chromatin opening dynamics of distal regions in early T cell differentiation match expected transcription factor motifs} 
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/atac-clusters/atac-motifs.pdf}
-      \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{Dynamically open distal regions in early T cell differentiation are always hypomethylated}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/atac-clusters/atac-wgbs.pdf}
-      \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{Constitutively open chromatin distal regions in early T cell differentiation exhibits H3K27ac dynamics...}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/atac-clusters/atac-wgbs-h3k27ac.pdf}
-      \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{Constitutively open chromatin distal regions in early T cell differentiation exhibits H3K27ac dynamics...}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/atac-clusters/h3k27ac.pdf}
-      \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{Constitutively open chromatin distal regions in early T cell differentiation exhibits H3K27ac dynamics associated with transcription of nearby genes}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/atac-clusters/rnaseq-h3k27ac-no-casero.pdf}
-      \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{Constitutively open chromatin distal regions in early T cell differentiation exhibits H3K27ac dynamics associated with transcription of nearby genes}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/atac-clusters/rnaseq-h3k27ac-with-casero.pdf}
-      \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{Differential expression analysis...}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/atac-clusters/casero-violin-barplot.pdf}
-      \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{Differential expression analysis highlights genes associated with a dynamic putative enhancer}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/atac-clusters/casero-violin-barplot-top-fc.pdf}
-      \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{TRAC, is even the top one from all genes}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/casero-dear.pdf}
-      \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}%
-      \note{les gènes avec la plus grande variation d'expression sont régulés par la méthylation, mais le top1 repose sur un autre mécanisme car il est toujours hypométhylé.}%
-    \end{frame}
-    %\subsection{E\textalpha}
-    \subsection{Epigenetic regulation of TCRA locus}
-    \begin{frame}{Epigenetic dynamics of TCRA locus}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/chromatin-states/genome-view/tcra.pdf}
-      \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{Activators binds TCRA enhancer in early T cell differentiation...}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/ea-tf-mouse-chip.pdf}
-      \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}%
-    \end{frame}
-    \begin{frame}{Activators binds TCRA enhancer in early T cell differentiation but the locus activate later}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/ea-tf-mouse.pdf}
-      \includegraphics[width=\textwidth, height=.85\textheight, keepaspectratio]{\smi}%
-    \end{frame}
-    \begin{frame}{Looking for a potential candidate repressor in transcriptomic data...}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/rna-clusters/all.pdf}
-      \includegraphics[width=\textwidth, height=.9\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{Looking for a potential candidate repressor in transcriptomic data highlights HOXA family genes}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/rna-clusters/c13-tf.pdf}
-      \includegraphics[width=\textwidth, height=.65\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{Looking for a potential candidate repressor in transcriptomic data highlights HOXA family genes validated by collaborators biological approaches}
-      Undisclosed, but...
-      %\def\smi{out/ln/updir/mw-gcthesis-oral/ink/rna-clusters/c13-tf.pdf}
-      %\includegraphics[width=\textwidth, height=.65\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{Mature T-lymphoblastic leukemias provide another evidence for Homeobox family genes repressive action on E\textalpha{}}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/tall/H3K27ac_HOXA5-9_TLX1_TLX3_ealpha_barplot.png}
-      %\def\smi{out/ln/updir/mw-gcthesis-oral/ink/tall/H3K27ac_HOXA9_TLX1_TLX3_ealpha_barplot_recolored_trimmed.png}
-      \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}%
-      \note{Classes}%
-    \end{frame}
-    \begin{frame}{Mature T-lymphoblastic leukemias provide another evidence for Homeobox family genes repressive action on E\textalpha{}}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/tall/ealpha_h3k27ac_groups.pdf}
-      %\def\smi{out/ln/updir/mw-gcthesis-oral/ink/tall/H3K27ac_HOXA5-9_TLX1_TLX3_ealpha_barplot.png}
-      \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}%
-      %\begin{tikzpicture}[overlay, remember picture]
-      %  \node at (current page) 
-      %  {
-      %    %\def\smi{out/ln/updir/mw-gcthesis-oral/ink/tall/dot-box-violin-plot-H3K27ac-ealpha.pdf}
-      %    \includegraphics[width=\textwidth, height=.65\textheight, keepaspectratio]{\smi}
-      %  };
-      %\end{tikzpicture}
-      \note{Boxplot}%
-    \end{frame}
-    \begin{frame}{Mechanistic model for E\textalpha{} activation in T cell differentiation}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/Highlight_HOXA_Blueprint_paper.pdf}
-      \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}%
-      \note{Classes}%
-    \end{frame}
-    %\begin{frame}{Key results}
-    %  \begin{itemize}
-    %    \item A reference epigenome of human early T cell differentiation has been generated
-    %      \begin{itemize}
-    %        \item Thymic subpopulations exhibit consistent epigenomic landscape when comparing between them, and between all HSC lineages
-    %        \item Differentiation from HSC to mature T cell lineage is associated with a shift from enhancers and transcribed regions to heterochromatin
-    %          %  \end{itemize}
-    %        \item DNA demethylation is a hallmark of distal regulatory elements irrespective of their activation status in T cells
-    %          \begin{itemize}
-    %            \item Distal hypomethylated regions are predominantly (77\%) constitutively demethylated accross thymic subpopulations
-    %            \item Dynamic distal hypomethylated regions are associated with higher level of H3K27ac and H3K4me1, and higher expression level of nearest genes
-    %            \item Distal regions losing methylation during T cell differentiation are associated with T cell functions whereas constitutively hypomethylated regions are mainly associated with other hematopoietic functions
-    %          \end{itemize}
-    %        \item Chromatin opening precedes enhancer activation
-    %        \item The TCRA enhancer (Eα) is in an open but epigenetically silent configuration in immature thymocytes
-    %        \item The HOXA locus is progressively repressed during early T cell differentiation
-    %        \item HOXA5-9 proteins repress Eα activity via their homeodomain
-    %        \item HOXA9 overexpression imposes developmental bias towards γδ T cell lineage
-    %        \item Homeodomain protein deregulation leads to TCRγδ bias in human T-ALL
-    %  \end{itemize}
-    %\end{frame}
-    \section{Reproducibility}
-    \begin{frame}{A trending topic}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/reproducibility/pubmed_trend_reproducibility_crisis.pdf}
-      \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}%
-      %  \note{Cela fait maintenant 20 minutes que l'on partage ce moment, je vais un peu me livrer et vous parler }
-      % JE ne vous ai pas tout dit. pour avoir accès à tous les détails, il faut aller regarder dans le code.
-    \end{frame}
-    %\frame{\tableofcontents[currentsection]}
-    \begin{frame}{Defining reproduciblity}
-      (Goodman et al. 2016)
-      \begin{itemize}
-        \item Methods reproducibility: provide sufficient detail about procedures and data so that the same procedures could be exactly repeated.
-        \item Results reproducibility: obtain the same results from an independent study with procedures as closely matched to the original study as possible.
-        \item Inferential reproducibility: draw the same conclusions from either an independent replication of a study or a reanalysis of the original study.
-      \end{itemize}
-    \end{frame}
-    \begin{frame}{Defining reproduciblity}
-      (Goodman et al. 2016)
-      \begin{itemize}
-        \item Methods reproducibility: provide sufficient detail about procedures and data so that the same procedures could be exactly repeated.
-          \begin{itemize}
-            \item In bioinformatics: all code, dataset and software needed to produce a given set of results are available and usable by others.
-          \end{itemize}
-        \item \textcolor{gray}{Results reproducibility: obtain the same results from an independent study with procedures as closely matched to the original study as possible.}
-        \item \textcolor{gray}{Inferential reproducibility: draw the same conclusions from either an independent replication of a study or a reanalysis of the original study.}
-      \end{itemize}
-    \end{frame}
-    \begin{frame}{Main requirements for (methods) reproducibility}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/reproducibility/arrow_reproducibility.pdf}
-      \includegraphics[width=.55\textwidth, height=.95\textheight, keepaspectratio]{\smi}
+  {\scriptsize
+  \begin{tabular}{@{}lll@{}}
+    \toprule
+    Component                      & Requirements                & Explanations            \\ \midrule
+    \multirow{4}{*}{\textcolor{NavyBlue}{Data}}          & Findable & \multirow{4}{*}{\href{https://www.force11.org/group/fairgroup/fairprinciples}{FAIR data principles}}   \\
+    & Accessible                        &       \\
+    & Interoperable                    &        \\ 
+    & Reusable                          &       \\ \midrule
+    \multirow{3}{*}{\textcolor{OliveGreen}{Software}}             & \multirow{3}{*}{Portable} & Tools with permissive licence \\
+    & & User-level OS-independent package management            \\
+    & & Automatic environment deployment           \\ \midrule
+    \multirow{3}{*}{\textcolor{Red}{Analysis Code}} & \multirow{2}{*}{Traceable} & Tools and parameters for each step       \\
+    & & Documentation of order, input and output \\ \cmidrule(l){2-3}
+    & Automation & Minimal human action required to reproduce analysis \\ \bottomrule
+  \end{tabular}
+  }
+  \note{Hello Reprod}
+\end{frame}
+\begin{frame}{Additional requirements for \emph{massive} genomic \emph{data} handling}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/reproducibility/arrow_reproducibility.pdf}
+  \includegraphics[width=.45\textwidth, height=.95\textheight, keepaspectratio]{\smi}
 
-      {\scriptsize
-      \begin{tabular}{@{}lll@{}}
-        \toprule
-        Component                      & Requirements                & Explanations            \\ \midrule
-        \multirow{4}{*}{Data}          & Findable &                                \\
-        & Accessible                        &       \\
-        & Interoperable                    &        \\ 
-        & Reusable                          &       \\ \midrule
-        \multirow{3}{*}{Software}             & \multirow{3}{*}{Portable} & Tools with permissive licence \\
-        & & User-level OS-independent package management            \\
-        & & Automatic environment deployment           \\ \midrule
-        \multirow{3}{*}{Analysis Code} & \multirow{2}{*}{Traceable} & Tools and parameters for each step       \\
-        & & Documentation of order, input and output \\
-        & Automation & Minimal human action required to reproduce analysis \\ \bottomrule
-      \end{tabular}
+  {\scriptsize
+  \begin{tabular}{@{}lll@{}}
+    \toprule
+    Component                      & Requirements                & Explanations            \\ \midrule
+    \multirow{4}{*}{\textcolor{NavyBlue}{Data}}          & Findable &  \multirow{4}{*}{\href{https://www.force11.org/group/fairgroup/fairprinciples}{FAIR data principles}}  \\
+    & Accessible                        &       \\
+    & Interoperable                    &        \\ 
+    & Reusable                          &       \\ \midrule
+    \multirow{3}{*}{\textcolor{OliveGreen}{Software}}             & \multirow{3}{*}{Portable} & Tools with permissive licence \\
+    & & User-level OS-independent package management            \\
+    & & Automatic environment deployment           \\ \midrule
+    \multirow{6}{*}{\textcolor{Red}{Analysis Code}} & \multirow{2}{*}{Traceable} & Tools and parameters for each step       \\
+    & & Documentation of order, input and output \\ \cmidrule(l){2-3}
+    & Automation & Minimal human action required to reproduce analysis \\ \cmidrule(l){2-3} 
+    & \multirow{3}{*}{\textbf{Scalable}} & Straightforward and efficient parallelization of tasks \\
+    & & Stoppable and resumable analyses \\
+    & & Clusters and Clouds supports \\ \bottomrule
+  \end{tabular}
+  }
+  \note{hello massive data}
+\end{frame}
+\begin{frame}[fragile]{Elements of solution for reproducibility in bioinformatics}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/reproducibility/arrow_reproducibility_solutions.pdf}
+  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
+  \begin{lstlisting}
+  git clone URL_for_workflow/repo.git
+  cd repo
+  snakemake --use-conda
+  \end{lstlisting}
+\end{frame}
+\subsection{Beyond reproducibility}
+\begin{frame}{Reuse scenario}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/reproducibility/arrow_reproducibility_exchange_data.pdf}
+  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
+\end{frame}
+\begin{frame}{Alternative protocol exploration scenario}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/reproducibility/arrow_reproducibility_alternative_protocol.pdf}
+  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
+\end{frame}
+\begin{frame}{Integration of multiple workflows into one analysis}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/reproducibility/arrow_reproducibility_integration.pdf}
+  \includegraphics[width=\textwidth, height=.65\textheight, keepaspectratio]{\smi}
+%  \begin{multicols}{2}
+%    \begin{itemize}
+%      \item Code redundancy? %And maintenancce
+%      \item Files and folders structure?
+%    \end{itemize}
+%  \end{multicols}
+\end{frame}
+%\begin{frame}{Snakemake workflow: from basic example...}
+%  % Snakemake ``pull'' principle}
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/snakemake/simple_workflow.pdf}
+%  \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
+%\end{frame}
+\begin{frame}{Workflow integration using subworkflows}
+  \centering
+  {\small
+  \begin{multicols}{3}
+    \begin{itemize}
+      \item Wanted: ABC \& DBE outputs
+      \item 2 available CPU
+      \item 1 CPU for each task
+    \end{itemize}
+  \end{multicols}
+  }
+  \begin{columns}
+    \column{.5\textwidth}
+    \centering
+    \def\smi{out/graphviz/dot_-Tpdf/ln/updir/mw-gcthesis-oral/dot/dag_ABC.pdf}
+    \includegraphics[width=\textwidth, height=.65\textheight, keepaspectratio]{\smi}
+    \column{.5\textwidth}
+    \centering
+    \def\smi{out/graphviz/dot_-Tpdf/ln/updir/mw-gcthesis-oral/dot/dag_DBE.pdf}
+    \includegraphics[width=\textwidth, height=.65\textheight, keepaspectratio]{\smi}
+  \end{columns}
+  \pause
+  {\small
+  \begin{multicols}{3}
+    \begin{itemize}
+      \item Poor parallelization
+      \item Code redundancy
+      \item Merge subworkflows?
+    \end{itemize}
+  \end{multicols}
+  }
+\end{frame}
+%\begin{frame}{Snakemake workflow: from basic example to simple RNA-Seq analysis}
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/snakemake/rna-seq-star-deseq2.png}
+%  \includegraphics[width=\textwidth, height=.75\textheight, keepaspectratio]{\smi}
+%  \blfootnote{Workflow from }
+%\end{frame}
+%\begin{frame}{Snakemake workflow: from basic example to more complex ChIP-Seq analysis}
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/snakemake/snakechunk.png}
+%  \includegraphics[width=\textwidth, height=.75\textheight, keepaspectratio]{\smi}
+%  \blfootnote{Snakechunk}
+%\end{frame}
+%\begin{frame}{Snakemake workflow: from basic example to integrative .*-Seq analysis}
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/snakemake/rna-seq-star-deseq2.png}
+%  \includegraphics[width=\textwidth, height=.75\textheight, keepaspectratio]{\smi}%
+%  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/snakemake/snakechunk.png}
+%  \includegraphics[width=\textwidth, height=.75\textheight, keepaspectratio]{\smi}
+%  {\small
+%  \begin{multicols}{3}
+%    \begin{itemize}
+%      \item Poor parallelization
+%      \item Code redundancy
+%      \item Merge?
+%    \end{itemize}
+%  \end{multicols}
+%  }
+%\end{frame}
+\begin{frame}{Snakemake freedom can hurt: Ambiguous rule exception}
+  \begin{columns}
+    \column{.5\textwidth}
+    \def\smi{out/ln/updir/mw-gcthesis-oral/ink/snakemake/ambiguous_rules.pdf}
+    \includegraphics[width=\textwidth, height=.75\textheight, keepaspectratio]{\smi}%
+    \column{.5\textwidth}
+    \def\smi{out/graphviz/dot_-Tpdf/ln/updir/mw-gcthesis-oral/dot/wget_gzip.pdf}
+    \includegraphics[width=\textwidth, height=.75\textheight, keepaspectratio]{\smi}
+    %\def\smi{out/ln/updir/mw-gcthesis-oral/ink/snakemake/venn_snakemake_output.pdf}
+    %\includegraphics[width=\textwidth, height=.75\textheight, keepaspectratio]{\smi}%
+  \end{columns}
+  \note{Snakemake user worst nightmare: ambiguous rules.
+  As a developer, you have the responsibility to find naming patterns
+  for all the rules in your workflow. If your workflow grows in size, you
+  may face “ambiguous rules” issues. 
+
+  Discrepancies in naming patterns from different workflows are the
+  main cause of hassle when trying to merge features from both.
+  }%
+\end{frame}
+\begin{frame}{Objectives}
+  \begin{itemize}
+    \item How to ensure no ambiguity can arise between rules while maintaining large scope for rules?
+      %\item Is it possible to use Snakemake with an alternative paradigm ``One workflow for all analyses''?
+    \item Is it possible to write a unique workflow to compute any possible analyses?
+      %\item Transforming weakness into strength.
+      %\item Is it possible to store a bioinformatician thesis project, a whole research career, or a project of any size with multiple collaborators inside a reproducible, scalable and lightweight workflow?
+      %\item Simple solution: 
+  \end{itemize}
+\end{frame}
+%\section{MetaWorkflow: a methodological experiment to find conventional algorithmical way for naming patterns}
+%\begin{frame}{MetaWorkflow: a methodological experiment to find conventional algorithmical way for naming file patterns}
+%%\begin{frame}{All rules and tools can be coerced to one of these rule types}
+%%  \includegraphics[width=1\textwidth, height=0.75\textheight, keepaspectratio]{doc/2017_05_03_gc_rule_types/drawing.pdf}
+%%\end{frame}
+\begin{frame}{Metaworkflow limits Snakemake freedom to bare minimum}
+  %  \begin{columns}
+  %    \column{.5\textwidth}
+  %    \begin{enumerate}
+  %      \item All rules can and should be coerced to write their outputs in their own unique directory
+  %      \item All rules can accept a global pattern for their input files
+  %      \item 
+  %    \end{enumerate}
+  %    \column{.5\textwidth}
+  \def\smi{out/ln/updir/mw-gcthesis-oral/ink/snakemake/venn_snakemake_metaworkflow.pdf}
+  \includegraphics[width=\textwidth, height=.75\textheight, keepaspectratio]{\smi}%
+  %  \end{columns}
+\end{frame}
+%\begin{frame}{All rules can and should be coerced to write their outputs in their own unique directory}
+%  \begin{itemize}
+%    \item out/\{tool-name\}/\{optional-subfunction\}\_\{arg1name\}-\{arg1value\}\_\{arg2name\}-\{arg2value\}\_\{\ldots\}/\{filler\}.\{ext\}
+%    \item where \{filler\} is the main input file path from out level without its extension.
+%    \item Example:
+%      \begin{itemize}
+%        \item Raw sequences:\\
+%          \textcolor{red}{inp/fastq/sample}.fastq
+%        \item Trimmed sequences:\\
+%          out/\textcolor{blue}{sickle/se\_q-30\_t-sanger}/\textcolor{red}{inp/fastq/sample}.fastq
+%        \item Aligned sequences:\\
+%          out/\textcolor{green}{bowtie2/se\_x-GRCh38}/\textcolor{blue}{sickle/se\_q-30\_t-sanger}/\textcolor{red}{inp/fastq/sample}.sam
+%        \item Aligned sequences without prior trimming:\\
+%          out/\textcolor{green}{bowtie2/se\_x-GRCh38}/\textcolor{red}{inp/fastq/sample}.sam
+%      \end{itemize}
+%  \end{itemize}
+%  \note{Avantage traçabilité accessible sans regarder le code. Benchmarking, comparaison}
+%\end{frame}
+\definecolor{A}{HTML}{C6F466}
+\definecolor{B}{HTML}{7164CA}
+\definecolor{C}{HTML}{FFB66B}
+\begin{frame}[fragile]{All rules can and should be coerced to write their outputs in their own unique directory}
+  \centering
+  \begin{columns}
+    \column{.3\textwidth}
+    \resizebox{!}{.55\textheight}{%
+      \begin{tikzpicture}
+        %\draw[fill=green] (0,0) rectangle (2,1) node[pos=.5] {Test};
+        \fill[black] (-.1,.4) rectangle (0,-2.4);
+        %\fill[\color[rgb]{0.42,0.6,0.85}] (.1,0) rectangle (2,.4) node[pos=.5, text=black] {A out};
+        \fill[A] (0,0) rectangle (.6,-.4) node[pos=.5, text=black] {A};
+        \fill[B] (0,-1) rectangle (.6,-1.4) node[pos=.5, text=black] {B};
+        \fill[C] (0,-2) rectangle (.6,-2.4) node[pos=.5, text=black] {C};
+        %fist level deep
+        \fill[A] (.6,-1) rectangle (1.2,-1.4) node[pos=.5, text=black] {A};
+        \fill[B] (.6,-2) rectangle (1.2,-2.4) node[pos=.5, text=black] {B};
+        %second level deep
+        \fill[A] (1.2,-2) rectangle (1.8,-2.4) node[pos=.5, text=black] {A};
+        %\draw[fill=blue] (0,1) rectangle (2,2) node[text=blue] {B};
+      \end{tikzpicture}
       }
-      \note{Hello Reprod}
-    \end{frame}
-    \begin{frame}{Additional requirements for massive genomic data handling}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/reproducibility/arrow_reproducibility.pdf}
-      \includegraphics[width=.55\textwidth, height=.95\textheight, keepaspectratio]{\smi}
+      \column{.2\textwidth}
+      \def\smi{out/graphviz/dot_-Tpdf/ln/updir/mw-gcthesis-oral/dot/ABC.pdf}
+      \includegraphics[width=\textwidth, height=.55\textheight, keepaspectratio]{\smi}%
+      \column{.5\textwidth}
+      \begin{lstlisting}[language=snakemake]
+      rule A:
+      input: "{filler}.ext"
+      output: "A{extra}/{filler}.ext"
 
-      {\scriptsize
-      \begin{tabular}{@{}lll@{}}
-        \toprule
-        Component                      & Requirements                & Explanations            \\ \midrule
-        \multirow{4}{*}{Data}          & Findable &                                \\
-        & Accessible                        &       \\
-        & Interoperable                    &        \\ 
-        & Reusable                          &       \\ \midrule
-        \multirow{3}{*}{Software}             & \multirow{3}{*}{Portable} & Tools with permissive licence \\
-        & & User-level OS-independent package management            \\
-        & & Automatic environment deployment           \\ \midrule
-        \multirow{6}{*}{Analysis Code} & \multirow{2}{*}{Traceable} & Tools and parameters for each step       \\
-        & & Documentation of order, input and output \\
-        & Automation & Minimal human action required to reproduce analysis \\ 
-        & \multirow{3}{*}{Scalable} & Straightforward and efficient parallelization of tasks \\
-        & & Stoppable and resumable analyses \\
-        & & Clusters and Clouds supports \\ \bottomrule
-      \end{tabular}
-      }
-      \note{hello massive data}
-    \end{frame}
-    \begin{frame}[fragile]{Elements of solution for reproducibility in bioinformatics}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/reproducibility/arrow_reproducibility_solutions.pdf}
-      \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
-      \begin{lstlisting}
-      git clone URL_for_workflow/repo.git
-      cd repo
-      snakemake --use-conda
-      \end{lstlisting}
-    \end{frame}
-    \subsection{Beyond reproducibility}
-    \begin{frame}{Reusability scenario}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/reproducibility/arrow_reproducibility_exchange_data.pdf}
-      \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{Alternative protocol exploration scenario}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/reproducibility/arrow_reproducibility_alternative_protocol.pdf}
-      \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{Integrate multiple workflows into one analysis}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/reproducibility/arrow_reproducibility_integration.pdf}
-      \includegraphics[width=\textwidth, height=.65\textheight, keepaspectratio]{\smi}
-      \begin{multicols}{2}
-        \begin{itemize}
-          \item Code redundancy? %And maintenancce
-          \item Files and folders structure?
-        \end{itemize}
-      \end{multicols}
-    \end{frame}
-    \begin{frame}{Snakemake workflow: from basic example...}
-      % Snakemake ``pull'' principle}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/snakemake/simple_workflow.pdf}
-      \includegraphics[width=\textwidth, height=.95\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{Snakemake workflow: from basic example to simple RNA-Seq analysis}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/snakemake/rna-seq-star-deseq2.png}
-      \includegraphics[width=\textwidth, height=.75\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{Snakemake workflow: from basic example to more complex ChIP-Seq analysis}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/snakemake/snakechunk.png}
-      \includegraphics[width=\textwidth, height=.75\textheight, keepaspectratio]{\smi}
-    \end{frame}
-    \begin{frame}{Snakemake workflow: from basic example to integrative .*-Seq analysis}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/snakemake/rna-seq-star-deseq2.png}
-      \includegraphics[width=\textwidth, height=.75\textheight, keepaspectratio]{\smi}%
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/snakemake/snakechunk.png}
-      \includegraphics[width=\textwidth, height=.75\textheight, keepaspectratio]{\smi}
-      {\small
-      \begin{multicols}{3}
-        \begin{itemize}
-          \item Poor parallelization
-          \item Code redundancy
-          \item Merge?
-        \end{itemize}
-      \end{multicols}
-      }
-    \end{frame}
-    \begin{frame}{Snakemake freedom can hurt}
-      \begin{columns}
-        \column{.5\textwidth}
-        \def\smi{out/ln/updir/mw-gcthesis-oral/ink/snakemake/ambiguous_rules.pdf}
-        \includegraphics[width=\textwidth, height=.75\textheight, keepaspectratio]{\smi}%
-        \column{.5\textwidth}
-        \def\smi{out/ln/updir/mw-gcthesis-oral/ink/snakemake/venn_snakemake_output.pdf}
-        \includegraphics[width=\textwidth, height=.75\textheight, keepaspectratio]{\smi}%
-      \end{columns}
-      \note{Snakemake user worst nightmare: ambiguous rules.
-      As a developer, you have the responsibility to find naming patterns
-      for all the rules in your workflow. If your workflow grows in size, you
-      may face “ambiguous rules” issues. 
+      rule B:
+      input: "{filler}.ext"
+      output: "B{extra}/{filler}.ext"
 
-      Discrepancies in naming patterns from different workflows are the
-      main cause of hassle when trying to merge features from both.
-      }%
-    \end{frame}
-    \begin{frame}{Objectives}
-      \begin{itemize}
-        \item How to ensure no ambiguity can arise between rules while maintaining large scope for rules?
-          %\item Is it possible to use Snakemake with an alternative paradigm ``One workflow for all analyses''?
-        \item Is it possible to write a unique workflow to compute any possible analyses?
-          %\item Transforming weakness into strength.
-        \item Is it possible to store a bioinformatician thesis project, a whole research career, or a project of any size with multiple collaborators inside a reproducible, scalable and lightweight workflow?
-          %\item Simple solution: 
-      \end{itemize}
-    \end{frame}
-    %\section{MetaWorkflow: a methodological experiment to find conventional algorithmical way for naming patterns}
-    %\begin{frame}{MetaWorkflow: a methodological experiment to find conventional algorithmical way for naming file patterns}
-    %%\begin{frame}{All rules and tools can be coerced to one of these rule types}
-    %%  \includegraphics[width=1\textwidth, height=0.75\textheight, keepaspectratio]{doc/2017_05_03_gc_rule_types/drawing.pdf}
-    %%\end{frame}
-    \begin{frame}{Metaworkflow limits freedom to bare minimum}
-      %  \begin{columns}
-      %    \column{.5\textwidth}
-      %    \begin{enumerate}
-      %      \item All rules can and should be coerced to write their outputs in their own unique directory
-      %      \item All rules can accept a global pattern for their input files
-      %      \item 
-      %    \end{enumerate}
-      %    \column{.5\textwidth}
-      \def\smi{out/ln/updir/mw-gcthesis-oral/ink/snakemake/venn_snakemake_metaworkflow.pdf}
-      \includegraphics[width=\textwidth, height=.75\textheight, keepaspectratio]{\smi}%
-      %  \end{columns}
-    \end{frame}
-    \begin{frame}{All rules can and should be coerced to write their outputs in their own unique directory}
-      \begin{itemize}
-        \item out/\{tool-name\}/\{optional-subfunction\}\_\{arg1name\}-\{arg1value\}\_\{arg2name\}-\{arg2value\}\_\{\ldots\}/\{filler\}.\{ext\}
-        \item where \{filler\} is the main input file path from out level without its extension.
-        \item Example:
-          \begin{itemize}
-            \item Raw sequences:\\
-              \textcolor{red}{inp/fastq/sample}.fastq
-            \item Trimmed sequences:\\
-              out/\textcolor{blue}{sickle/se\_q-30\_t-sanger}/\textcolor{red}{inp/fastq/sample}.fastq
-            \item Aligned sequences:\\
-              out/\textcolor{green}{bowtie2/se\_x-GRCh38}/\textcolor{blue}{sickle/se\_q-30\_t-sanger}/\textcolor{red}{inp/fastq/sample}.sam
-            \item Aligned sequences without prior trimming:\\
-              out/\textcolor{green}{bowtie2/se\_x-GRCh38}/\textcolor{red}{inp/fastq/sample}.sam
-          \end{itemize}
-      \end{itemize}
-      \note{Avantage traçabilité accessible sans regarder le code. Benchmarking, comparaison}
-    \end{frame}
-    \begin{frame}{Metaworkflow defines coding conventions for modular workflow development}
-      \begin{itemize}
-        \item mw-lib: public library of globalized rules
-        \item mw-thymus: private repository of project-specific rules
-        \item mw-otherCollab: private repository for another project
-        \item mw-cieslak2019: subset of mw-thymus to reproduce article plots released upon publication
-        \item mw-gcthesis-oral: public repository to compile this presentation
-        \item mw-createYourFirstModuleForYourResearch
-        \item and many more...
-      \end{itemize}
+      rule C:
+      input: "{filler}.ext"
+      output: "C{extra}/{filler}.ext"\end{lstlisting}
+  \end{columns}
+  \begin{lstlisting}
+snakemake C/B/A/sample1.ext C/B/A/sample2.ext
+  \end{lstlisting}
+\end{frame}
+%\begin{frame}{Benchmking becomes easy}
+%  \resizebox{!}{.8\textheight}{%
+%    \begin{tikzpicture}
+%      %\draw[fill=green] (0,0) rectangle (2,1) node[pos=.5] {Test};
+%      \fill[black] (-.1,.4) rectangle (0,-3.4);
+%      %\fill[\color[rgb]{0.42,0.6,0.85}] (.1,0) rectangle (2,.4) node[pos=.5, text=black] {A out};
+%      \fill[A] (0,0) rectangle (1,-.4) node[pos=.5, text=black] {A};
+%      \fill[B] (0,-1) rectangle (1,-1.4) node[pos=.5, text=black] {B};
+%      \fill[C] (0,-2) rectangle (1,-2.4) node[pos=.5, text=black] {C};
+%      \fill[C] (0,-3) rectangle (1,-3.4) node[pos=.5, text=black] {C};
+%
+%      %fist level deep
+%      \fill[A] (1,-1) rectangle (2,-1.4) node[pos=.5, text=black] {A};
+%      \fill[B] (1,-2) rectangle (2,-2.4) node[pos=.5, text=black] {B};
+%      \fill[A] (1,-3) rectangle (2,-3.4) node[pos=.5, text=black] {A};
+%
+%      %second level deep
+%      \fill[A] (2,-2) rectangle (3,-2.4) node[pos=.5, text=black] {A};
+%
+%
+%      %\draw[fill=blue] (0,1) rectangle (2,2) node[text=blue] {B};
+%    \end{tikzpicture}
+%    }\hfill%
+%    \def\smi{out/graphviz/dot_-Tpdf/ln/updir/mw-gcthesis-oral/dot/ABC2.pdf}
+%    \includegraphics[width=\textwidth, height=.8\textheight, keepaspectratio]{\smi}
+%\end{frame}
+%\begin{frame}[fragile]{Benchmarking becomes easy}
+\begin{frame}[fragile]{Easier development and benchmarking}
+  \centering
+  \begin{columns}
+    \column{.2\textwidth}
+    \resizebox{!}{.55\textheight}{%
+      \begin{tikzpicture}
+        %\draw[fill=green] (0,0) rectangle (2,1) node[pos=.5] {Test};
+        \fill[black] (-.1,.4) rectangle (0,-3.4);
+        %\fill[\color[rgb]{0.42,0.6,0.85}] (.1,0) rectangle (2,.4) node[pos=.5, text=black] {A out};
+        \fill[A] (0,0) rectangle (.6,-.4) node[pos=.5, text=black] {A};
+        \fill[B] (0,-1) rectangle (.6,-1.4) node[pos=.5, text=black] {B};
+        \fill[C] (0,-2) rectangle (.6,-2.4) node[pos=.5, text=black] {C};
+        \fill[C] (0,-3) rectangle (.6,-3.4) node[pos=.5, text=black] {C};
+        %fist level deep
+        \fill[A] (.6,-1) rectangle (1.2,-1.4) node[pos=.5, text=black] {A};
+        \fill[B] (.6,-2) rectangle (1.2,-2.4) node[pos=.5, text=black] {B};
+        \fill[A] (.6,-3) rectangle (1.2,-3.4) node[pos=.5, text=black] {A};
+        %second level deep
+        \fill[A] (1.2,-2) rectangle (1.8,-2.4) node[pos=.5, text=black] {A};
+        %\draw[fill=blue] (0,1) rectangle (2,2) node[text=blue] {B};
+      \end{tikzpicture}
+      }
+      \column{.3\textwidth}
+      \centering
+      \def\smi{out/graphviz/dot_-Tpdf/ln/updir/mw-gcthesis-oral/dot/ABC2.pdf}
+      \includegraphics[width=\textwidth, height=.55\textheight, keepaspectratio]{\smi}%
+      \column{.5\textwidth}
+      \begin{lstlisting}[language=snakemake]
+      rule A:
+      input: "{filler}.ext"
+      output: "A{extra}/{filler}.ext"
+
+      rule B:
+      input: "{filler}.ext"
+      output: "B{extra}/{filler}.ext"
+
+      rule C:
+      input: "{filler}.ext"
+      output: "C{extra}/{filler}.ext"\end{lstlisting}
+  \end{columns}
+  \begin{lstlisting}
+snakemake C/B/A/example1.ext C/A/example1.ext
+  \end{lstlisting}
+  \pause
+  \begin{lstlisting}
+snakemake C_extraParams1/B/A/example1.ext
+  \end{lstlisting}
+  Traceable + Flexible + Small codebase
+\end{frame}
+%\begin{frame}{Metaworkflow defines coding conventions for modular workflow development}
+%  \begin{itemize}
+%    \item mw-lib: public library of globalized rules
+%    \item mw-thymus: private repository of project-specific rules
+%    \item mw-otherCollab: private repository for another project
+%    \item mw-cieslak2019: subset of mw-thymus to reproduce article plots released upon publication
+%    \item mw-gcthesis-oral: public repository to compile this presentation
+%    \item mw-createYourFirstModuleForYourResearch
+%    \item and many more...
+%  \end{itemize}
+%\end{frame}
+\begin{frame}{Metaworkflow defines coding conventions for modular workflow development}
+  %\begin{tikzpicture}
+  %  %\node[draw, circle] (lib) at (0,0) {lib};
+  %  \draw (0,0) circle (1) node[pos=.5, text=black] (lib) {lib};
+  %  \draw (2,1) circle (1) node[pos=.5, text=black] (project-dev) {project-dev};
+  %  \draw (2,-1) circle (1) node[pos=.5, text=black] (project-pub) {project-pub};
+  %  \path[->] (lib) edge node[sloped, anchor=center, below] {}  (project-dev);
+  %  \path[->] (lib) edge node[sloped, anchor=center, below] {}  (project-pub);
+  %\end{tikzpicture}
+  \resizebox{!}{.8\textheight}{%
+    %  \begin{tikzpicture}[shorten >=2pt,node distance=5cm,on grid,auto]
+    \begin{tikzpicture}[node distance=5cm,on grid,auto]
+      \node[state, align=center] (lib) {\textbf{lib}\\A, B, C rules\\\textit{public}};
+      \pause
+      \node[state, align=center] (dev) [above left =of lib] {\textbf{project1-dev}\\project-specific rules\\\textit{private}};
+      \path[->, thick] (dev)    edge  node {Depends on} (lib);
+      \pause
+      \node[state, align=center] (pub) [above right =of lib] {\textbf{project1-pub}\\article-specific rules\\\textit{public}};
+      %\node[state] (Nr) [below right =of Rn] {Dead};
+      \path[->, thick]
+      (pub)    edge  node   {}      (lib)
+      (pub)    edge[dotted]  node {Subset extracted from}         (dev);
+      \pause
+      \node[state, align=center] (routine) [below left =of lib] {\textbf{seq-routine}\\specific rules\\\textit{private}};
+      \path[->, thick] (routine) edge node {} (lib);
+      \pause
+      \node[state, align=center] (defense) [below right =of lib] {\textbf{phd-defense}\\\LaTeX{} \& media\\\textit{public}};
+      \path[->, thick] (defense) edge node {} (lib);
+    \end{tikzpicture}
+    }
     \end{frame}
     \begin{frame}{Acknowledgments}
-      \begin{itemize}
-        \item Incoming...
-      \end{itemize}
+      \centering
+      \def\smi{out/ln/updir/mw-gcthesis-oral/remerciements1.pdf}
+      \includegraphics[width=\textwidth, height=.45\textheight, keepaspectratio]{\smi}
+      \def\smi{out/ln/updir/mw-gcthesis-oral/remerciements2.pdf}
+      \includegraphics[width=\textwidth, height=.45\textheight, keepaspectratio]{\smi}
     \end{frame}
     \begin{frame}[plain]
       \def\smi{out/wget/https/imgs.xkcd.com/comics/thesis_defense.png}
@@ -1132,135 +1587,6 @@
     %\end{frame}
     %\section{Epigenomic dynamics of early T cell progenitors reveals $TCR\alpha$ enhancer silencing by HOXA}
     %\subsection{A reference epigenome of human early T cell differentiation}
-    %\begin{frame}{A reference epigenome of human early T cell differentiation}
-    %\end{frame}
-    %\begin{frame}{New high-throughput sequencing data generated for the Blueprint project}
-    %  \begin{itemize}
-    %    \item New samples: Figure S1.
-    %    \item Experiments: 6 main histone marks, WGBS, RNA-Seq, ATAC.
-    %  \end{itemize}
-    %\end{frame}
-    %\begin{frame}{Thymic subpopulations integrate consistently the epigenomic landscape of human hematopoiesis}
-    %  \begin{itemize}
-    %    \item S1B + 1A
-    %    \item \url{file:///home/gcharbonnier/mw/out/graphviz/dot/snakemake/stdout_--rulegraph_thymus-mca.pdf}
-    %    \item \url{file:///home/gcharbonnier/mw/out/graphviz/dot/snakemake/stdout_--dag_thymus-mca.pdf}
-    %  \end{itemize}
-    %\end{frame}
-    %\begin{frame}{Functional enrichment analysis of active-enhancer state consistently associate each population to their functions.}
-    %  \begin{itemize}
-    %    \item 1B
-    %  \end{itemize}
-    %\end{frame}
-    %\begin{frame}{Lineage specific genes displayed the expected chromatin dynamics across hematopoietic populations}
-    %  \begin{itemize}
-    %    \item 1C
-    %  \end{itemize}
-    %\end{frame}
-    %\begin{frame}{Chromatin states separate the main stages of thymic T cell differentiation from HSC and peripheral T cells}
-    %  \begin{itemize}
-    %    \item 1D
-    %    \item S1C:  V(D)J recombination VS cell homeostasis and activation functions?
-    %  \end{itemize}
-    %\end{frame}
-    %\begin{frame}{Chromatin state transitions during T cell differentiation suggests a progressive loss of plasticity}
-    %  \begin{itemize}
-    %    \item 1E
-    %  \end{itemize}
-    %\end{frame}
-    %\begin{frame}{Known master transcription factors are consistently activated or repressed during T Cell commitment and differentiation}
-    %  \begin{itemize}
-    %    \item 1F
-    %  \end{itemize}
-    %\end{frame}
-    %\subsection{DNA demethylation marks distal regulatory elements irrespective of their activation status in T cells}
-    %\begin{frame}{DNA demethylation marks distal regulatory elements irrespective of their activation status in T cells}
-    %\end{frame}
-    %\begin{frame}{DNA methylation allows to retrace the lineages of the different hematopoietic samples}
-    %  \begin{itemize}
-    %    \item S3
-    %  \end{itemize}
-    %\end{frame}
-    %\begin{frame}{Constitutively hypomethylated distal regions represent a majority (77\%)
-    %  of all distal hypomethylated regions}
-    %    \begin{itemize}
-    %      \item 2A
-    %    \end{itemize}
-    %  \end{frame}
-    %  \begin{frame}{Constitutively hypomethylated distal regions are poorly enriched in H3K27ac, although level of hypomethylation is correlated with level of H3K27acetylation}
-    %    \begin{itemize}
-    %    \item 2B
-    %  \end{itemize}
-    %\end{frame}
-    %\begin{frame}{Constitutively hypomethylated distal regions are close to genes expressed at low level}
-    %  \begin{itemize}
-    %    \item 2C
-    %  \end{itemize}
-    %\end{frame}
-    %\begin{frame}{Constitutively hypomethylated distal regions are close to genes associated with genes related to hematopoietic lineages other than T Cells or not specifically enriched in relevant biological processes, although cluster 5 is significant for both T Cell related terms}
-    %  \begin{itemize}
-    %    \item 2D
-    %  \end{itemize}
-    %\end{frame}
-    %\begin{frame}{Dynamically hypomethylated distal regions are highly enriched in H3K27ac and close to genes highly expressed and related to T Cells}
-    %  \begin{itemize}
-    %    \item 2A + 2B + 2C + 2D
-    %  \end{itemize}
-    %\end{frame}
-    %\begin{frame}{Dynamically H3K27-acetylated and constitutively hypomethylated distal regions represents 17\%
-    %  of all distal hypomethylated regions}
-    %  \begin{itemize}
-    %    \item S3 + 2E + 2F
-    %  \end{itemize}
-    %\end{frame}
-    %\begin{frame}{Changes of H3K27ac levels roughly follow the expression dynamics of neighbor genes}
-    %  \begin{itemize}
-    %    \item 2E + 2G
-    %  \end{itemize}
-    %\end{frame}
-    %\begin{frame}{Three loci suggesting hypomethylation marks distal regulatory elements independently of their activation status}
-    %  \begin{itemize}
-    %    \item 2H
-    %  \end{itemize}
-    %\end{frame}
-    %\subsection{Chromatin opening precedes enhancer activation}
-    %\begin{frame}{Chromatin opening precedes enhancer activation}
-    %\end{frame}
-    %\begin{frame}{ATAC identifies 2084 and 2905 distal open chromatin regions in tCD34 and EC, respectively, with 1108 shared between thymic populations}
-    %  \begin{itemize}
-    %    \item 3A
-    %  \end{itemize}
-    %\end{frame}
-    %\begin{frame}{ATAC identifies 2084 and 2905 distal open chromatin regions in tCD34 and EC, respectively, with 1108 shared between thymic populations}
-    %  \begin{itemize}
-    %    \item 3A
-    %  \end{itemize}
-    %\end{frame}
-    %\begin{frame}{Who needs ggplot2 when we have Excel?}
-    %  \begin{itemize}
-    %    \item Functional enrichment analysis:3B
-    %    \item Motif enrichment analysis: 3B' (Credit to Quentin Ferré for gtftk peak\_anno)
-    %  \end{itemize}
-    %\end{frame}
-    %\begin{frame}{Open chromatin distal regions are constitutively demethylated independently of their opening timing}
-    %  \begin{itemize}
-    %    \item 3C
-    %    \item WGBS profiles may hide a small subset of of open chromatin regions that are not demethylated. Hence I propose as an additional argument to cluster this heatmap:\\
-    %      \url{out/deepTools/plotHeatmap_sortRegions-descend_sortUsing-region_length_averageTypeSummaryPlot-mean_missingDataColor-1_colorList-blueCyanYellowOrangeRed_heatmapHeight-28_heatmapWidth-3_whatToShow-hc_xAxisLabel-peak-center_refPointLabel-0_boxAroundHeatmaps-no/deepTools/computeMatrix_reference-point_referencePoint-center_beforeRegionStartLength-2000_afterRegionStartLength-2000_binSize-200_bed-hg38-atac-thymus_bw-hg38-BS-thymus-110-91.pdf}\\
-    %      If no methylated cluster arise, then OK to conclusion.
-    %  \end{itemize}
-    %\end{frame}
-    %\begin{frame}{Constitutively open and demethylated regions exhibits wide range of variation in enhancer activity}
-    %  \begin{itemize}
-    %    \item 3D + 3E + 3F + 3G
-    %  \end{itemize}
-    %\end{frame}
-    %\begin{frame}{TRAC locus is the highest induced gene during T-Cell committment, yet is constitutively demethylated and open}
-    %  \begin{itemize}
-    %    \item 3H + 3H' + S3'
-    %    \item Seamless transition to mechanistical part about HOXA role...
-    %  \end{itemize}
-    %\end{frame}
     %\begin{frame}[allowframebreaks]
     %  % \printbibliography
     %  \bibliographystyle{abbrvnat}
