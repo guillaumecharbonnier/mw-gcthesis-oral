@@ -1,2 +1,3 @@
 #! /bin/sh
-impressive -t Crossfade slides.pdf
+dspdfviewer slides.pdf
+#impressive -t Crossfade slides.pdf
