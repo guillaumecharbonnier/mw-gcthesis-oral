@@ -1,0 +1,10 @@
+digraph snakemake_dag {
+    graph[bgcolor=white, margin=0];
+    node[shape=circle, style=filled, fontname=sans, fontsize=14, penwidth=2, margin=0];
+    edge[penwidth=2, fontcolor=black];
+	0[label = "A", fillcolor = "#C6F466"];
+	1[label = "B", fillcolor = "#7164CA"];
+	2[label = "C", fillcolor = "#FFB66B"];
+	0 -> 1
+	1 -> 2
+}            

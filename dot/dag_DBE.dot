@@ -1,0 +1,18 @@
+digraph snakemake_dag {
+    graph[bgcolor=white, margin=0];
+    node[shape=box, style=rounded, fontname=sans,                 fontsize=10, penwidth=2];
+    edge[penwidth=2, color=grey];
+	0[label = "DBE\n10 hours", color = "0.57 0.6 0.85", style="rounded"];
+	1[label = "E\n1 hour", color = "0.10 0.6 0.85", style="rounded"];
+	2[label = "E\n1 hour", color = "0.10 0.6 0.85", style="rounded"];
+	3[label = "B\n1 hour", color = "0.19 0.6 0.85", style="rounded"];
+	4[label = "B\n1 hour", color = "0.19 0.6 0.85", style="rounded"];
+	5[label = "D\n1 hour\n sample 3", color = "0.29 0.6 0.85", style="rounded"];
+	6[label = "D\n1 hour\n sample 4", color = "0.29 0.6 0.85", style="rounded"];
+	1 -> 0
+	2 -> 0
+	3 -> 1
+	4 -> 2
+	5 -> 3
+	6 -> 4
+}            

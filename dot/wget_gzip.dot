@@ -1,0 +1,12 @@
+digraph snakemake_dag {
+    graph[bgcolor=white, margin=0];
+    node[shape=rectangle, style=rounded, fontname=sans, fontsize=14, penwidth=2];
+    edge[penwidth=2, fontcolor=black];
+	0[label = "wget; url=example", color = "#C6F466"];
+	1[label = "gzip; filepath=wget/example ", color = "#7164CA"];
+	2[label = "wget/example.gz", color = "#FFB66B"];
+	3[label = "wget; url=example.gz", color = "#C6F466"];
+	0 -> 1
+	1 -> 2
+	3 -> 2
+}            
